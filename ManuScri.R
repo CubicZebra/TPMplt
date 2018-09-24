@@ -42,7 +42,7 @@ API4TMZ <- function(cd, wd=getwd()){
   return(data)
 }
 
-datainput <- function(cd, wd=getwd(), makeidx=FALSE){
+TMZdatainput <- function(cd, wd=getwd(), makeidx=FALSE){
   data <- API4TMZ(cd=cd, wd=wd)
   title <- colnames(data)
   write.csv(data, "temp.csv")
@@ -62,7 +62,7 @@ S <- c("0.001", "0.01", "0.1", "1")
 D <- c("60%")
 cd <- list(T, S, D)
 
-data <- datainput(cd, "/Data/Org/")
+data <- TMZdatainput(cd, "/Data/Org/")
 rm(list = c("T", "S", "D"))
 
 ##### diminspec: return the variables dimension from data #####
@@ -671,3 +671,16 @@ epsiSRTchart <- epsinprt(data, eps = 0.16, lyT = 2, lySR = 3)
 TPMdata <- SRTprocess(epsiSRTchart)
 tt1 <- SVRPlot(TPMdata, notelocation = c(930, -0.3))
 tt1
+
+# e <- seq(0.1, 0.9, by = 0.02)
+# times <- length(e)
+# i <- 1
+# for (i in 1:times) {
+#   epsiSRTchart <- epsinprt(data, eps = e[i], lyT = 2, lySR = 3)
+#   TPMdata <- SRTprocess(epsiSRTchart)
+#   SVRfig <- SVRPlot(TPMdata, notelocation = c(930, -0.3))
+#   print(SVRfig)
+#   Sys.sleep(5)
+# }
+
+
