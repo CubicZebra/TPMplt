@@ -9,7 +9,8 @@ MakeGrid(x, seqby = 80)
 \arguments{
 \item{x}{A calculation result returned from the function \code{\link[TPMplt:DMMprocess]{DMMprocess}}.}
 
-\item{seqby}{A numeric value to specify the grid density. The default value used is 80.}
+\item{seqby}{A numeric value to specify the grid density. The default value used is 80, namely the
+default mesh used 80*80 for original plot.}
 }
 \value{
 A grid table with the ranges for logarithm strain rate and temperature.
@@ -20,7 +21,7 @@ Make a grid for ploting thermal processing map.
 \examples{
 epstable <- epsExtract(TPMdata, 0.7, 2, 3)
 DMM <- DMMprocess(epstable)
-ptr <- MakeGrid(DMM)
-ptr
+prdptr <- MakeGrid(DMM)
+prdptr
 }
 \keyword{"MakeGrid"}

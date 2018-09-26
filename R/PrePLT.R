@@ -3,7 +3,6 @@
 #' @description Tidy the table of power dissipation factor efficiency eta, with different logarithm strain
 #' rates and temperature for further analysis, based on the given dynamic material model.
 #' @param x A calculation result returned from the function \code{\link[TPMplt:DMMprocess]{DMMprocess}}.
-#'
 #' @return A matrix with melted temperatures, logarithm strain rates and values of power dissipation factor
 #' in respective columns.
 #' @export etatidy
@@ -99,7 +98,8 @@ xitidy <- function(x){
 #'
 #' @description Make a grid for ploting thermal processing map.
 #' @param x A calculation result returned from the function \code{\link[TPMplt:DMMprocess]{DMMprocess}}.
-#' @param seqby  A numeric value to specify the grid density. The default value used is 80.
+#' @param seqby  A numeric value to specify the grid density. The default value used is 80, namely the
+#' default mesh used 80*80 for original plot.
 #'
 #' @return A grid table with the ranges for logarithm strain rate and temperature.
 #' @export MakeGrid
