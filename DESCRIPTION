@@ -4,7 +4,7 @@ Title: Tool-Kit for Dynamic Materials Model and Thermal Processing Maps
 Version: 0.1.0
 Author: ZHANG Chen
 Maintainer: ZHANG Chen <447974102@qq.com>
-Description: This package provides a simple approach for dynamic materials
+Description: Provides a simple approach for constructing dynamic materials
   modeling (DMM) suggested by Prasad and Gegel <doi:10.1007/BF02664902>. It
   can easily generate various processing-maps based on this DMM as well. The 
   calculation in TPMplt contians full materials coefficeints, infromations
