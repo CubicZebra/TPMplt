@@ -59,5 +59,3 @@ SVRModel <- function(x, seqby=80){
   class(result) <- c("PLTbuilder", class(result))
   return(result)
 }
-
-PLTbd <- SVRModel(DMM)

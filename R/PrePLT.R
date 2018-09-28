@@ -1,6 +1,6 @@
 #' Tidy the power dissipation efficiency data
 #'
-#' @description Tidy the table of power dissipation factor efficiency eta, with different logarithm strain
+#' @description Tidy the table of power dissipation efficiency factor eta, with different logarithm strain
 #' rates and temperature for further analysis, based on the given dynamic material model.
 #' @param x A calculation result returned from the function \code{\link[TPMplt:DMMprocess]{DMMprocess}}.
 #' @return A matrix with melted temperatures, logarithm strain rates and values of power dissipation factor

@@ -14,7 +14,7 @@ A matrix with melted temperatures, logarithm strain rates and values of power di
 in respective columns.
 }
 \description{
-Tidy the table of power dissipation factor efficiency eta, with different logarithm strain
+Tidy the table of power dissipation efficiency factor eta, with different logarithm strain
 rates and temperature for further analysis, based on the given dynamic material model.
 }
 \examples{

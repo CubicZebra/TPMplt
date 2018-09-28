@@ -2,8 +2,13 @@
 
 export(DMMprocess)
 export(MakeGrid)
+export(SVRModel)
+export(TPM2dplt)
+export(TPM3dplt)
 export(epsExtract)
 export(etatidy)
 export(lyIDdetector)
 export(xitidy)
 import(VBTree)
+import(ggplot2)
+import(rgl)
