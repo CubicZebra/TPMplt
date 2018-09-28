@@ -1,4 +1,4 @@
-#' Tidy the power dissipation efficiency data
+#' Internal functions
 #'
 #' @description Tidy the table of power dissipation efficiency factor eta, with different logarithm strain
 #' rates and temperature for further analysis, based on the given dynamic material model.
@@ -13,7 +13,7 @@
 #' DMM <- DMMprocess(epstable)
 #' etaM <- etatidy(DMM)
 #' etaM
-#' @keywords "etatidy" "DMMprocess"
+#' @keywords internal
 etatidy <- function(x){
 
   # input data check
@@ -46,7 +46,7 @@ etatidy <- function(x){
   return(M)
 }
 
-#' Tidy xi tables for instability analysis
+#' Internal functions
 #'
 #' @description Tidy the table of xi values, with different logarithm strain rates and temperatures for further
 #' analysis, based on the given dynamic material model.
@@ -60,7 +60,7 @@ etatidy <- function(x){
 #' DMM <- DMMprocess(epstable)
 #' xiM <- xitidy(DMM)
 #' xiM
-#' @keywords "xitidy" "DMMprocess"
+#' @keywords internal
 xitidy <- function(x){
 
   # input data check
@@ -94,7 +94,7 @@ xitidy <- function(x){
 }
 
 
-#' Make grid for thermal processing map
+#' Internal functions
 #'
 #' @description Make a grid for ploting thermal processing map.
 #' @param x A calculation result returned from the function \code{\link[TPMplt:DMMprocess]{DMMprocess}}.
@@ -109,7 +109,7 @@ xitidy <- function(x){
 #' DMM <- DMMprocess(epstable)
 #' prdptr <- MakeGrid(DMM)
 #' prdptr
-#' @keywords "MakeGrid"
+#' @keywords internal
 MakeGrid <- function(x, seqby=80){
 
   # input data check

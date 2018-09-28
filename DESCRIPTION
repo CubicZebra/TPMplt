@@ -1,12 +1,28 @@
 Package: TPMplt
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Generate Thermal Procress Maps According Given Strain Condition
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: ZHANG Chen
+Maintainer: ZHANG Chen <447974102@qq.com>
+Description: This package provides a simple approach for dynamic materials
+  modeling (DMM) suggested by Prasad and Gegel <doi:10.1007/BF02664902>. It
+  can easily generate various processing-maps based on this DMM as well. The 
+  calculation in TPMplt contians full materials coefficeints, infromations
+  about power dissipation efficiency factor, and rheological stability, can
+  be exported completely also, through which further analysis and customized
+  plots are applicable as well.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.0
+Imports: VBTree,
+    ggplot2,
+    rgl,
+    e1071,
+    qpcR,
+    grDevices
+Depends: R (>= 2.10)
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

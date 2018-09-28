@@ -1,5 +1,23 @@
-# Functions for inputing data from Thermec Master-Z apparatus
-
+#' Internal functions
+#'
+#' @param Cdl An handmade double list to determine selected conditions.
+#' @param wd Work directory. Default setting is \code{\link[base:getwd]{getwd()}}.
+#' @param ftype File type to be read. Defaust setting is ".csv".
+#'
+#' @import qpcR VBTree utils
+#' @return A matrix summary table for all input files.
+#' @export API4TMZ
+#'
+#' @examples
+#' \dontrun{
+#' variable1 <- c("factor11", "factor12", "factor13")
+#' variable2 <- c("factor21", "factor22")
+#' variable3 <- c("factor31", "factor32", "factor33", "factor34")
+#' conditions <- list(variable1, variable2, variable3)
+#' SummaryTable <- API4TMZ(conditions, "/Your_Working_Directory/")
+#' SummaryTable
+#' }
+#' @keywords internal
 API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv"){
   if(all(is.character(unlist(Cdl)))==F){
     stop("input list must double list.", call. = FALSE)
@@ -42,6 +60,25 @@ API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv"){
   return(data)
 }
 
+
+#' Internal functions
+#'
+#' @param makeidx Boolean to control the index column for summary table. Default setting is FALSE.
+#' @param ... Arguments to be past to \code{\link[TPMplt:API4TMZ]{API4TMZ}}.
+#'
+#' @return A data frame summary table for all input files.
+#' @export TMZdatainput
+#'
+#' @examples
+#' \dontrun{
+#' variable1 <- c("factor11", "factor12", "factor13")
+#' variable2 <- c("factor21", "factor22")
+#' variable3 <- c("factor31", "factor32", "factor33", "factor34")
+#' conditions <- list(variable1, variable2, variable3)
+#' SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Working_Directory/")
+#' SummaryTable
+#' }
+#' @keywords internal
 TMZdatainput <- function(makeidx=FALSE, ...){
   data <- API4TMZ(...)
   title <- colnames(data)

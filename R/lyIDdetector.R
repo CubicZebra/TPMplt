@@ -1,4 +1,4 @@
-#' Detect layer and levels for Strain and Stress
+#' Internal functions
 #'
 #' @description Function for detecting the locations for Strain and Stress in data frame. It is an key component for automatic
 #' completion in the function of \code{\link[TPMplt:epsExtract]{epsExtract}}.
@@ -11,9 +11,10 @@
 #' @seealso \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[TPMplt:epsExtract]{TPMplt}}
 #'
 #' @examples
+#' require(VBTree)
 #' chrvec2dl(colnames(TPMdata))
 #' lyIDdetector(TPMdata)
-#' @keywords "lyIDdetector" "epsExtract"
+#' @keywords internal
 lyIDdetector <- function(data, patterns="[Ss][Tt][Rr]"){
 
   # input data diagnose:

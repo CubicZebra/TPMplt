@@ -8,17 +8,17 @@ TPM2dplt(x, xloc = 0.09, yloc = 0.03, lowclr = "red",
   mdclr = "white", highclr = "green")
 }
 \arguments{
-\item{x}{Regression results from modeling functions such as \code{\link[TPMplt:SVRmodel]{SVRmodel}}.}
+\item{x}{Regression results from modeling functions such as \code{\link[TPMplt:SVRModel]{SVRModel}}.}
 
 \item{xloc}{Location for annotatin in x axis. The default value is 0.09.}
 
 \item{yloc}{Location for annotatin in y axis. The default value is 0.03.}
 
-\item{lowclr}{Colour for low rheological stability region. The default setting is \code{"red"}.}
+\item{lowclr}{Colour for low rheological stability region. The default setting is "red".}
 
-\item{mdclr}{Colour between low and high rheological stability regions. The default setting uses \code{"white"}.}
+\item{mdclr}{Colour between low and high rheological stability regions. The default setting uses "white".}
 
-\item{highclr}{Colour for high rheological stability region. The default setting is \code{"red"}.}
+\item{highclr}{Colour for high rheological stability region. The default setting is "green".}
 }
 \value{
 A 2d thermal process maps with logarithm strain rate as its y axis while celsius temperature as its x axis. Strain conditon

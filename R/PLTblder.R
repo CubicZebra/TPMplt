@@ -6,6 +6,7 @@
 #' @param seqby A numeric value to specify the grid density. The default value used is 80, namely the
 #' default mesh used 80*80 for original plot.
 #'
+#' @import e1071
 #' @return A data frame including continuous values for eta and xi, calculated based on the discrete
 #' tables for eta and xi calculated through \code{\link[TPMplt:DMMprocess]{DMMprocess}}.
 #' @export SVRModel
@@ -41,8 +42,8 @@ SVRModel <- function(x, seqby=80){
   etavalue <- as.vector(etaM[,3])
   xivalue <- as.vector(xiM[,3])
 
-  modeleta <- e1071::svm(etatable, etavalue, kernel = "radial", type = "eps")
-  modelxi <- e1071::svm(xitable, xivalue, kernel = "radial", type = "eps")
+  modeleta <- svm(etatable, etavalue, kernel = "radial", type = "eps")
+  modelxi <- svm(xitable, xivalue, kernel = "radial", type = "eps")
 
   predeta <- as.vector(predict(modeleta, vartable))
   predxi <- as.vector(predict(modelxi, vartable))

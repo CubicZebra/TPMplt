@@ -2,7 +2,7 @@
 % Please edit documentation in R/PrePLT.R
 \name{etatidy}
 \alias{etatidy}
-\title{Tidy the power dissipation efficiency data}
+\title{Internal functions}
 \usage{
 etatidy(x)
 }
@@ -26,5 +26,4 @@ etaM
 \seealso{
 \code{\link[TPMplt:xitidy]{xitidy}}, \code{\link[TPMplt:DMMprocess]{DMMprocess}}
 }
-\keyword{"DMMprocess"}
-\keyword{"etatidy"}
+\keyword{internal}

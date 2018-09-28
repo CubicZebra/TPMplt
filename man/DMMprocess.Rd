@@ -27,6 +27,7 @@ the function \code{\link[TPMplt:epsExtract]{epsExtract}}. And calculating the co
 function.
 }
 \examples{
+require(VBTree)
 dl2vbt(chrvec2dl(colnames(TPMdata)))
 epstable <- epsExtract(TPMdata, 0.7, 2, 3)
 DMM <- DMMprocess(epstable)

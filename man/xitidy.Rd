@@ -2,7 +2,7 @@
 % Please edit documentation in R/PrePLT.R
 \name{xitidy}
 \alias{xitidy}
-\title{Tidy xi tables for instability analysis}
+\title{Internal functions}
 \usage{
 xitidy(x)
 }
@@ -25,5 +25,4 @@ xiM
 \seealso{
 \code{\link[TPMplt:etatidy]{etatidy}}, \code{\link[TPMplt:DMMprocess]{DMMprocess}}
 }
-\keyword{"DMMprocess"}
-\keyword{"xitidy"}
+\keyword{internal}

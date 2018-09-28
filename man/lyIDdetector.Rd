@@ -2,7 +2,7 @@
 % Please edit documentation in R/lyIDdetector.R
 \name{lyIDdetector}
 \alias{lyIDdetector}
-\title{Detect layer and levels for Strain and Stress}
+\title{Internal functions}
 \usage{
 lyIDdetector(data, patterns = "[Ss][Tt][Rr]")
 }
@@ -19,11 +19,11 @@ Function for detecting the locations for Strain and Stress in data frame. It is 
 completion in the function of \code{\link[TPMplt:epsExtract]{epsExtract}}.
 }
 \examples{
+require(VBTree)
 chrvec2dl(colnames(TPMdata))
 lyIDdetector(TPMdata)
 }
 \seealso{
 \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[TPMplt:epsExtract]{TPMplt}}
 }
-\keyword{"epsExtract"}
-\keyword{"lyIDdetector"}
+\keyword{internal}

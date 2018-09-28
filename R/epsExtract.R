@@ -16,6 +16,8 @@
 #' @seealso \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[TPMplt:lyIDdetector]{lyIDdetector}}
 #'
 #' @examples
+#' require(VBTree)
+#' # Find locations for temperature and strain rate:
 #' dl2vbt(chrvec2dl(colnames(TPMdata)))
 #' epsExtract(TPMdata, eps = 0.7, lyT = 2, lySR = 3)
 #' @keywords "SR-T.table" "epsExtract" "lyIDdetector"

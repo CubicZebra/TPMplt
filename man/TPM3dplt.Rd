@@ -7,7 +7,7 @@
 TPM3dplt(x, dvs = 5)
 }
 \arguments{
-\item{x}{Regression results from modeling functions such as \code{\link[TPMplt:SVRmodel]{SVRmodel}}.}
+\item{x}{Regression results from modeling functions such as \code{\link[TPMplt:SVRModel]{SVRModel}}.}
 
 \item{dvs}{A positive integer to set the divisions for all labels in two surface 3d plots. The default value is 5.}
 }

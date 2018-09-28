@@ -27,6 +27,8 @@ value as strain condition for this strain rate-temperature table.
 Automatically output the strain rate vs. temperature table, by a specified strain condition.
 }
 \examples{
+require(VBTree)
+# Find locations for temperature and strain rate:
 dl2vbt(chrvec2dl(colnames(TPMdata)))
 epsExtract(TPMdata, eps = 0.7, lyT = 2, lySR = 3)
 }

@@ -2,12 +2,12 @@
 #'
 #' @description Plot a 2d thermal process maps: logarithm strain rate as y axis while celsius temperature as x axis. Contours denotes
 #' the power dissipation efficiency factor, while the background with gradual colors represents rheological stability.
-#' @param x Regression results from modeling functions such as \code{\link[TPMplt:SVRmodel]{SVRmodel}}.
+#' @param x Regression results from modeling functions such as \code{\link[TPMplt:SVRModel]{SVRModel}}.
 #' @param xloc Location for annotatin in x axis. The default value is 0.09.
 #' @param yloc Location for annotatin in y axis. The default value is 0.03.
-#' @param lowclr Colour for low rheological stability region. The default setting is \code{"red"}.
-#' @param mdclr Colour between low and high rheological stability regions. The default setting uses \code{"white"}.
-#' @param highclr Colour for high rheological stability region. The default setting is \code{"red"}.
+#' @param lowclr Colour for low rheological stability region. The default setting is "red".
+#' @param mdclr Colour between low and high rheological stability regions. The default setting uses "white".
+#' @param highclr Colour for high rheological stability region. The default setting is "green".
 #'
 #' @import ggplot2
 #' @return A 2d thermal process maps with logarithm strain rate as its y axis while celsius temperature as its x axis. Strain conditon
@@ -52,7 +52,22 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, lowclr="red", mdclr="white", highc
   return(result)
 }
 
-surfacebld <- function(x, grp){
+
+#' Internal functions
+#'
+#' @param x An "PLTbuilder" object.
+#' @param grp "eta" or "xi" to determine which group is extracted as the subset.
+#'
+#' @return A matrix for 3d surface plot.
+#' @export surfacebld
+#'
+#' @examples
+#' epstable <- epsExtract(TPMdata, 0.7, 2, 3)
+#' DMM <- DMMprocess(epstable)
+#' PLTbd <- SVRModel(DMM)
+#' surfacebld(PLTbd, "eta")
+#' @keywords internal
+surfacebld <- function(x, grp=c("eta", "xi")){
   tt <- subset(x[[1]], group == grp)
   clnslt <- c(4,1,2)
   m <- cbind(tt[,clnslt[1]], tt[,clnslt[2]], tt[,clnslt[3]])
@@ -67,10 +82,33 @@ surfacebld <- function(x, grp){
     y_cor <- which(abs(levy-m[i,3]) < 0.000002)
     cvrtm[x_cor, y_cor] <- m[i,1]
   }
-  return(cvrtm)
+  result <- list(result=cvrtm, levx=levx, levy=levy)
+  return(result)
 }
 
-basic3d <- function(x, gain, division=5, zeroplane=TRUE){
+
+#' Internal function
+#'
+#' @param x An "PLTbuilder" object.
+#' @param gain A positive integer to gain gradual colours. Default value is 100.
+#' @param division subdivision numbers for x, y and z axises.
+#' @param zeroplane Boolean value to control for adding the plane of z=0. Default setting is TRUE.
+#'
+#' @import rgl
+#' @return A surface 3d plot.
+#' @export basic3d
+#'
+#' @examples
+#' epstable <- epsExtract(TPMdata, 0.7, 2, 3)
+#' DMM <- DMMprocess(epstable)
+#' PLTbd <- SVRModel(DMM)
+#' PLT3dbd <- surfacebld(PLTbd, "eta")
+#' basic3d(PLT3dbd)
+#' @keywords internal
+basic3d <- function(x, gain=100, division=5, zeroplane=TRUE){
+  levx <- x[[2]]
+  levy <- x[[3]]
+  x <- x[[1]]
   eta.gained <- x*gain
   T.index <- (1:nrow(x))
   lgSR.index <- (1:ncol(x))
@@ -79,13 +117,12 @@ basic3d <- function(x, gain, division=5, zeroplane=TRUE){
   zlen <- zlim[2] - zlim[1] + 1
   colorlut <- cm.colors(zlen) # height color lookup table
   col <- colorlut[(eta.gained-zlim[1]+1)] # assign colors to heights for each point
-  # open3d()
 
   T.index1 <- T.index*zlim[2]/max(T.index)
   lgSR.index1 <- lgSR.index*zlim[2]/max(lgSR.index)
 
 
-  surface3d(T.index1, lgSR.index1, x*gain, color=col, back="lines", main = title.name)
+  surface3d(T.index1, lgSR.index1, x*gain, color=col, back="lines")
   grid3d(c("x", "y+", "z"), n =20)
 
   lgSR.name <- round(levy[1:ncol(x)], 2)
@@ -104,12 +141,11 @@ basic3d <- function(x, gain, division=5, zeroplane=TRUE){
   }
 }
 
-
 #' Plot 3d thermal process maps
 #'
 #' @description Return a 3d thermal process result consisted of 3d surfaces for power dissipation efficiency eta and rheological stability
 #' xi respectively.
-#' @param x Regression results from modeling functions such as \code{\link[TPMplt:SVRmodel]{SVRmodel}}.
+#' @param x Regression results from modeling functions such as \code{\link[TPMplt:SVRModel]{SVRModel}}.
 #' @param dvs A positive integer to set the divisions for all labels in two surface 3d plots. The default value is 5.
 #'
 #' @import rgl
@@ -142,11 +178,3 @@ TPM3dplt <- function(x, dvs=5){
   title.sub <- paste("(Strain=", PLTbd[[2]], ")", sep = "")
   title3d(main = title.name, sub = title.sub, xlab = "Temperature (Celsius)", ylab = "LogStrainRate (log(s^(-1)))", zlab = "xi")
 }
-
-epstable <- epsExtract(TPMdata, 0.7, 2, 3)
-DMM <- DMMprocess(epstable)
-PLTbd <- SVRModel(DMM)
-TPM3dplt(PLTbd)
-
-
-

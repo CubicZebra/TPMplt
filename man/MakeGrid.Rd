@@ -2,7 +2,7 @@
 % Please edit documentation in R/PrePLT.R
 \name{MakeGrid}
 \alias{MakeGrid}
-\title{Make grid for thermal processing map}
+\title{Internal functions}
 \usage{
 MakeGrid(x, seqby = 80)
 }
@@ -24,4 +24,4 @@ DMM <- DMMprocess(epstable)
 prdptr <- MakeGrid(DMM)
 prdptr
 }
-\keyword{"MakeGrid"}
+\keyword{internal}
