@@ -2,7 +2,7 @@
 % Please edit documentation in R/TPMplt.R
 \name{surfacebld}
 \alias{surfacebld}
-\title{Internal functions}
+\title{Build matrix for 3D plots}
 \usage{
 surfacebld(x, grp = c("eta", "xi"))
 }
@@ -15,7 +15,7 @@ surfacebld(x, grp = c("eta", "xi"))
 A matrix for 3d surface plot.
 }
 \description{
-Internal functions
+Build matrix for 3D plots
 }
 \examples{
 epstable <- epsExtract(TPMdata, 0.7, 2, 3)

@@ -1,10 +1,18 @@
-#' Internal functions
+#' API to read files exported from Thermec Master-Z tester
 #'
 #' @param Cdl An handmade double list to determine selected conditions.
 #' @param wd Work directory. Default setting is \code{\link[base:getwd]{getwd()}}.
 #' @param ftype File type to be read. Defaust setting is ".csv".
+#' @param Straincln An integer to specify column for Strain in your data. Default value
+#' is 7 means the 7th column contains strain data, in the files exported from Thermec
+#' Master-Z tester.
+#' @param Stresscln An integer to specify column for Strain in your data. Default value
+#' is 8 means the 8th column contains stress data, in the files exported from Thermec
+#' Master-Z tester.
+#' @param startrow An integer to ignore the prefix rows for testing conditions. Default
+#' value is 29.
 #'
-#' @import qpcR VBTree utils
+#' @import rowr VBTree utils stats
 #' @return A matrix summary table for all input files.
 #' @export API4TMZ
 #'
@@ -18,7 +26,7 @@
 #' SummaryTable
 #' }
 #' @keywords internal
-API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv"){
+API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv", Straincln=7, Stresscln=8, startrow=29){
   if(all(is.character(unlist(Cdl)))==F){
     stop("input list must double list.", call. = FALSE)
   } else{
@@ -40,28 +48,31 @@ API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv"){
 
     # initialize temp data
     temp_data <- read.csv(paste(wd, sfd, name[1], ftype, sep = ""), header = F)
-    temp_data <- as.matrix(temp_data[29:dim(temp_data)[1],])
-    temp_data <- temp_data[which(temp_data[,2]==" 1"), 7:8]
+    temp_data <- as.matrix(temp_data[startrow:dim(temp_data)[1],])
+    temp_data <- temp_data[which(temp_data[,2]==" 1"), c(Straincln, Stresscln)]
     data <- temp_data
 
     # make data summary table
+    clnnames <- c()
+    i <- 1
     for(i in 1:len_name){
       temp_data <- read.csv(paste(wd, sfd, name[i],".csv", sep = ""), header = F)
-      temp_data <- as.matrix(temp_data[29:dim(temp_data)[1],])
-      temp_data <- temp_data[which(temp_data[,2]==" 1"), 7:8]
+      temp_data <- as.matrix(temp_data[startrow:dim(temp_data)[1],])
+      temp_data <- temp_data[which(temp_data[,2]==" 1"), c(Straincln, Stresscln)]
       temp_data <- apply(temp_data, 2, as.numeric)
-      colnames(temp_data) <- c(paste("Strain", name[i], sep = "-"), paste("Stress", name[i], sep = "-"))
-      data <- qpcR:::cbind.na(data, temp_data)
+      temp_clnnames <- c(paste("Strain", name[i], sep = "-"), paste("Stress", name[i], sep = "-"))
+      clnnames <- append(clnnames, temp_clnnames)
+      data <- rowr::cbind.fill(data, temp_data)
     }
     data <- data[,-c(1:2)] # Delete initial temp data
+    colnames(data) <- clnnames
     data <- data[complete.cases(data),]
     data <- apply(data, 2, as.numeric)
   }
   return(data)
 }
 
-
-#' Internal functions
+#' Read files exported from Thermec Master-Z tester to a summary data frame
 #'
 #' @param makeidx Boolean to control the index column for summary table. Default setting is FALSE.
 #' @param ... Arguments to be past to \code{\link[TPMplt:API4TMZ]{API4TMZ}}.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PrePLT.R
 \name{etatidy}
 \alias{etatidy}
-\title{Internal functions}
+\title{Tidy eta table for further process}
 \usage{
 etatidy(x)
 }

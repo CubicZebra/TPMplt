@@ -1,4 +1,4 @@
-#' Internal functions
+#' Tidy eta table for further process
 #'
 #' @description Tidy the table of power dissipation efficiency factor eta, with different logarithm strain
 #' rates and temperature for further analysis, based on the given dynamic material model.
@@ -46,7 +46,7 @@ etatidy <- function(x){
   return(M)
 }
 
-#' Internal functions
+#' Tidy xi table for further process
 #'
 #' @description Tidy the table of xi values, with different logarithm strain rates and temperatures for further
 #' analysis, based on the given dynamic material model.
@@ -94,7 +94,7 @@ xitidy <- function(x){
 }
 
 
-#' Internal functions
+#' Make grid mesh for plots
 #'
 #' @description Make a grid for ploting thermal processing map.
 #' @param x A calculation result returned from the function \code{\link[TPMplt:DMMprocess]{DMMprocess}}.

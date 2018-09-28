@@ -2,7 +2,7 @@
 % Please edit documentation in R/TMZtester.API.R
 \name{TMZdatainput}
 \alias{TMZdatainput}
-\title{Internal functions}
+\title{Read files exported from Thermec Master-Z tester to a summary data frame}
 \usage{
 TMZdatainput(makeidx = FALSE, ...)
 }
@@ -15,7 +15,7 @@ TMZdatainput(makeidx = FALSE, ...)
 A data frame summary table for all input files.
 }
 \description{
-Internal functions
+Read files exported from Thermec Master-Z tester to a summary data frame
 }
 \examples{
 \dontrun{

@@ -2,9 +2,10 @@
 % Please edit documentation in R/TMZtester.API.R
 \name{API4TMZ}
 \alias{API4TMZ}
-\title{Internal functions}
+\title{API to read files exported from Thermec Master-Z tester}
 \usage{
-API4TMZ(Cdl, wd = getwd(), ftype = ".csv")
+API4TMZ(Cdl, wd = getwd(), ftype = ".csv", Straincln = 7,
+  Stresscln = 8, startrow = 29)
 }
 \arguments{
 \item{Cdl}{An handmade double list to determine selected conditions.}
@@ -12,12 +13,23 @@ API4TMZ(Cdl, wd = getwd(), ftype = ".csv")
 \item{wd}{Work directory. Default setting is \code{\link[base:getwd]{getwd()}}.}
 
 \item{ftype}{File type to be read. Defaust setting is ".csv".}
+
+\item{Straincln}{An integer to specify column for Strain in your data. Default value
+is 7 means the 7th column contains strain data, in the files exported from Thermec
+Master-Z tester.}
+
+\item{Stresscln}{An integer to specify column for Strain in your data. Default value
+is 8 means the 8th column contains stress data, in the files exported from Thermec
+Master-Z tester.}
+
+\item{startrow}{An integer to ignore the prefix rows for testing conditions. Default
+value is 29.}
 }
 \value{
 A matrix summary table for all input files.
 }
 \description{
-Internal functions
+API to read files exported from Thermec Master-Z tester
 }
 \examples{
 \dontrun{

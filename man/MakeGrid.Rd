@@ -2,7 +2,7 @@
 % Please edit documentation in R/PrePLT.R
 \name{MakeGrid}
 \alias{MakeGrid}
-\title{Internal functions}
+\title{Make grid mesh for plots}
 \usage{
 MakeGrid(x, seqby = 80)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/TPMplt.R
 \name{basic3d}
 \alias{basic3d}
-\title{Internal function}
+\title{3D plots without labels}
 \usage{
 basic3d(x, gain = 100, division = 5, zeroplane = TRUE)
 }
@@ -19,7 +19,7 @@ basic3d(x, gain = 100, division = 5, zeroplane = TRUE)
 A surface 3d plot.
 }
 \description{
-Internal function
+3D plots without labels
 }
 \examples{
 epstable <- epsExtract(TPMdata, 0.7, 2, 3)

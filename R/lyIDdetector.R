@@ -1,4 +1,4 @@
-#' Internal functions
+#' Detecting locations for Strain and Stress
 #'
 #' @description Function for detecting the locations for Strain and Stress in data frame. It is an key component for automatic
 #' completion in the function of \code{\link[TPMplt:epsExtract]{epsExtract}}.

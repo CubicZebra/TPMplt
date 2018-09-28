@@ -2,7 +2,7 @@
 % Please edit documentation in R/PrePLT.R
 \name{xitidy}
 \alias{xitidy}
-\title{Internal functions}
+\title{Tidy xi table for further process}
 \usage{
 xitidy(x)
 }

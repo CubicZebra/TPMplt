@@ -38,9 +38,14 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, lowclr="red", mdclr="white", highc
   my_theme <- theme_zc + legendtheme_zc
 
   # make plot
-  xily <- ggplot(subset(x[[1]], group=="xi"), aes(T, lgSR, z = value))
-  xily <- xily + geom_raster(aes(fill = value), interpolate = TRUE) + scale_fill_gradientn(name="xi", colours=c(lowclr, mdclr, highclr))
-  ath_etaly <- xily + geom_contour(data = subset(x[[1]], group=="eta"), aes(T, lgSR, z=value, colour = stat(level)), inherit.aes = TRUE)
+  data1 <- subset(x[[1]], x[[1]][,3]=="xi")
+  data2 <- subset(x[[1]], x[[1]][,3]=="eta")
+  level <- NULL
+
+  xily <- ggplot(data = data1, aes(data1[,1], data1[,2], z = data1[,4]))
+  xily <- xily + geom_raster(aes(fill = data1[,4]), interpolate = TRUE) + scale_fill_gradientn(name="xi", colours=c(lowclr, mdclr, highclr))
+
+  ath_etaly <- xily + geom_contour(data = data2, aes(data2[,1], data2[,2], z=data2[,4], colour = stat(level)), inherit.aes = TRUE)
   ath_etaly <- ath_etaly + my_theme + xlab("Temperature (Celsius)") + ylab("LogStrainRate (log(s^(-1)))") + labs(color="eta")
 
   # add annotation
@@ -53,7 +58,7 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, lowclr="red", mdclr="white", highc
 }
 
 
-#' Internal functions
+#' Build matrix for 3D plots
 #'
 #' @param x An "PLTbuilder" object.
 #' @param grp "eta" or "xi" to determine which group is extracted as the subset.
@@ -68,7 +73,7 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, lowclr="red", mdclr="white", highc
 #' surfacebld(PLTbd, "eta")
 #' @keywords internal
 surfacebld <- function(x, grp=c("eta", "xi")){
-  tt <- subset(x[[1]], group == grp)
+  tt <- subset(x[[1]], x[[1]][,3] == grp)
   clnslt <- c(4,1,2)
   m <- cbind(tt[,clnslt[1]], tt[,clnslt[2]], tt[,clnslt[3]])
   len <- length(m[,1])
@@ -87,14 +92,14 @@ surfacebld <- function(x, grp=c("eta", "xi")){
 }
 
 
-#' Internal function
+#' 3D plots without labels
 #'
 #' @param x An "PLTbuilder" object.
 #' @param gain A positive integer to gain gradual colours. Default value is 100.
 #' @param division subdivision numbers for x, y and z axises.
 #' @param zeroplane Boolean value to control for adding the plane of z=0. Default setting is TRUE.
 #'
-#' @import rgl
+#' @import rgl grDevices
 #' @return A surface 3d plot.
 #' @export basic3d
 #'
@@ -166,15 +171,15 @@ TPM3dplt <- function(x, dvs=5){
   }
 
   mfrow3d(1, 2, sharedMouse = TRUE)
-  eta <- surfacebld(PLTbd, "eta")
+  eta <- surfacebld(x, "eta")
   basic3d(eta, 100, division = dvs, zeroplane = FALSE)
   title.name <- "Surface3d: power dissipation efficiency"
-  title.sub <- paste("(Strain=", PLTbd[[2]], ")", sep = "")
+  title.sub <- paste("(Strain=", x[[2]], ")", sep = "")
   title3d(main = title.name, sub = title.sub, xlab = "Temperature (Celsius)", ylab = "LogStrainRate (log(s^(-1)))", zlab = "eta")
   next3d()
-  xi <- surfacebld(PLTbd, "xi")
+  xi <- surfacebld(x, "xi")
   basic3d(xi, 100, division = dvs)
   title.name <- "Surface3d: rheological stability"
-  title.sub <- paste("(Strain=", PLTbd[[2]], ")", sep = "")
+  title.sub <- paste("(Strain=", x[[2]], ")", sep = "")
   title3d(main = title.name, sub = title.sub, xlab = "Temperature (Celsius)", ylab = "LogStrainRate (log(s^(-1)))", zlab = "xi")
 }

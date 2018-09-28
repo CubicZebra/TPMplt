@@ -2,7 +2,7 @@
 % Please edit documentation in R/lyIDdetector.R
 \name{lyIDdetector}
 \alias{lyIDdetector}
-\title{Internal functions}
+\title{Detecting locations for Strain and Stress}
 \usage{
 lyIDdetector(data, patterns = "[Ss][Tt][Rr]")
 }
