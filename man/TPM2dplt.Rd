@@ -21,9 +21,9 @@ TPM2dplt(x, xloc = 0.09, yloc = 0.03, lowclr = "red",
 \item{highclr}{Colour for high rheological stability region. The default setting is "green".}
 }
 \value{
-A 2d thermal process maps with logarithm strain rate as its y axis while celsius temperature as its x axis. Strain conditon
-is showed in top-left in the figure. Power dissipation efficiency factor eta is denoted by blue gradual contours, and the rheological
-stability are represented by gradual background.
+A 2d thermal processing-map with logarithm strain rate as its y axis while celsius temperature as its x axis. Strain conditon
+is showed in top-left in the figure. Power dissipation efficiency factor eta is denoted by gradient blue contours, and the rheological
+stability coefficient are represented by gradient background.
 }
 \description{
 Plot a 2d thermal process maps: logarithm strain rate as y axis while celsius temperature as x axis. Contours denotes
@@ -36,4 +36,3 @@ PLTbd <- SVRModel(DMM)
 TPM2dplt(PLTbd)
 }
 \keyword{"PLTbuilder"}
-\keyword{"TPM2dplt"}

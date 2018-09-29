@@ -7,10 +7,10 @@ Maintainer: ZHANG Chen <447974102@qq.com>
 Description: Provides a simple approach for constructing dynamic materials
   modeling (DMM) suggested by Prasad and Gegel <doi:10.1007/BF02664902>. It
   can easily generate various processing-maps based on this DMM as well. The 
-  calculation in TPMplt contians full materials coefficeints, infromations
-  about power dissipation efficiency factor, and rheological stability, can
+  calculation result in TPMplt contains full materials constants, information
+  about power dissipation efficiency factor, and rheological properties, can
   be exported completely also, through which further analysis and customized
-  plots are applicable as well.
+  plots will be applicable as well.
 License: GPL-3
 URL: https://github.com/CubicZebra/TPMplt
 Encoding: UTF-8

@@ -1,5 +1,8 @@
-#' API to read files exported from Thermec Master-Z tester
+#' Read multiple files exported from Thermec Master-Z tester
 #'
+#' @description Read data from multiple files with structurized file names, then generate
+#' a summary table. It will also be available for the files from other tester apparatus by
+#' correct setting.
 #' @param Cdl An handmade double list to determine selected conditions.
 #' @param wd Work directory. Default setting is \code{\link[base:getwd]{getwd()}}.
 #' @param ftype File type to be read. Defaust setting is ".csv".
@@ -13,7 +16,7 @@
 #' value is 29.
 #'
 #' @import rowr VBTree utils stats
-#' @return A matrix summary table for all input files.
+#' @return A matrix-like summary table for all input files.
 #' @export API4TMZ
 #'
 #' @examples
@@ -25,7 +28,7 @@
 #' SummaryTable <- API4TMZ(conditions, "/Your_Working_Directory/")
 #' SummaryTable
 #' }
-#' @keywords internal
+#' @keywords "APIfunction"
 API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv", Straincln=7, Stresscln=8, startrow=29){
   if(all(is.character(unlist(Cdl)))==F){
     stop("input list must double list.", call. = FALSE)
@@ -72,12 +75,16 @@ API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv", Straincln=7, Stresscln=8, sta
   return(data)
 }
 
-#' Read files exported from Thermec Master-Z tester to a summary data frame
+#' Read multiple files exported from Thermec Master-Z tester
 #'
-#' @param makeidx Boolean to control the index column for summary table. Default setting is FALSE.
-#' @param ... Arguments to be past to \code{\link[TPMplt:API4TMZ]{API4TMZ}}.
+#' @description Read data from multiple files with structurized file names, then generate
+#' a summary data frame. It will also be available for the files from other tester apparatus by
+#' correct setting.
+#' @param makeidx A boolean value to control the index column, inserted in the first column.
+#' Default setting is FALSE.
+#' @param ... Arguments to be passed to \code{\link[TPMplt:API4TMZ]{API4TMZ}}.
 #'
-#' @return A data frame summary table for all input files.
+#' @return A summary data frame for all input files.
 #' @export TMZdatainput
 #'
 #' @examples
@@ -89,7 +96,7 @@ API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv", Straincln=7, Stresscln=8, sta
 #' SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Working_Directory/")
 #' SummaryTable
 #' }
-#' @keywords internal
+#' @keywords "APIfunction"
 TMZdatainput <- function(makeidx=FALSE, ...){
   data <- API4TMZ(...)
   title <- colnames(data)

@@ -2,21 +2,21 @@
 % Please edit documentation in R/TPMplt.R
 \name{TPM3dplt}
 \alias{TPM3dplt}
-\title{Plot 3d thermal process maps}
+\title{Plot 3d thermal processing-maps}
 \usage{
 TPM3dplt(x, dvs = 5)
 }
 \arguments{
 \item{x}{Regression results from modeling functions such as \code{\link[TPMplt:SVRModel]{SVRModel}}.}
 
-\item{dvs}{A positive integer to set the divisions for all labels in two surface 3d plots. The default value is 5.}
+\item{dvs}{A positive integer to set the divisions for x, y and z labels in two 3d surface plots. The default value is 5.}
 }
 \value{
 Two 3d surface plots: the left one denotes power dissipation efficiency factor eta, while the right one is for rheological stability
-xi. A zero plane for xi value is added in the right plots for determining unstable region.
+xi. A zero plane, z=0, for xi value is added in the right plots for determining unstable region.
 }
 \description{
-Return a 3d thermal process result consisted of 3d surfaces for power dissipation efficiency eta and rheological stability
+Return a 3d thermal process result consisted of 3d surfaces for power dissipation efficiency eta and rheological stability coefficient
 xi respectively.
 }
 \examples{
@@ -26,4 +26,3 @@ PLTbd <- SVRModel(DMM)
 TPM3dplt(PLTbd)
 }
 \keyword{"PLTbuilder"}
-\keyword{"TPM3dplt"}

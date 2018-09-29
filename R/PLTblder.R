@@ -1,16 +1,17 @@
 #' Build support vector regression result
 #'
-#' @description Return a continuous values for eta and xi, based on prediction built by support vector
-#' regression model. The kernel function is radial basis.
-#' @param x A calculation result returned from the function \code{\link[TPMplt:DMMprocess]{DMMprocess}}.
-#' @param seqby A numeric value to specify the grid density. The default value used is 80, namely the
-#' default mesh used 80*80 for original plot.
+#' @description Return a table with continuous values for eta and xi, based on prediction built by support vector
+#' regression model (SVR). The kernel function in SVR is radial basis.
+#' @param x The calculation result returned from the function \code{\link[TPMplt:DMMprocess]{DMMprocess}}.
+#' @param seqby A numeric value to specify the grid density. Default value is 80, namely the default mesh for
+#' original plot uses 80*80.
 #'
 #' @import e1071
-#' @return A data frame including continuous values for eta and xi, calculated based on the discrete
-#' tables for eta and xi calculated through \code{\link[TPMplt:DMMprocess]{DMMprocess}}.
+#' @return A data frame including continuous values for eta and xi, calculated based on the discrete values for
+#' eta and xi returned from \code{\link[TPMplt:DMMprocess]{DMMprocess}}. The strain condition in current calculation
+#' is also included.
 #' @export SVRModel
-#' @seealso \code{\link[TPMplt:DMMprocess]{DMMprocess}},
+#' @seealso \code{\link[TPMplt:DMMprocess]{DMMprocess}}
 #'
 #' @examples
 #' epstable <- epsExtract(TPMdata, 0.7, 2, 3)

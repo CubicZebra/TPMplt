@@ -10,9 +10,9 @@
 #' @param highclr Colour for high rheological stability region. The default setting is "green".
 #'
 #' @import ggplot2
-#' @return A 2d thermal process maps with logarithm strain rate as its y axis while celsius temperature as its x axis. Strain conditon
-#' is showed in top-left in the figure. Power dissipation efficiency factor eta is denoted by blue gradual contours, and the rheological
-#' stability are represented by gradual background.
+#' @return A 2d thermal processing-map with logarithm strain rate as its y axis while celsius temperature as its x axis. Strain conditon
+#' is showed in top-left in the figure. Power dissipation efficiency factor eta is denoted by gradient blue contours, and the rheological
+#' stability coefficient are represented by gradient background.
 #' @export TPM2dplt
 #'
 #' @examples
@@ -20,7 +20,7 @@
 #' DMM <- DMMprocess(epstable)
 #' PLTbd <- SVRModel(DMM)
 #' TPM2dplt(PLTbd)
-#' @keywords "PLTbuilder" "TPM2dplt"
+#' @keywords "PLTbuilder"
 TPM2dplt <- function(x, xloc=0.09, yloc=0.03, lowclr="red", mdclr="white", highclr="green"){
   # input data check
   if(!any(class(x)=="PLTbuilder")){
@@ -146,16 +146,16 @@ basic3d <- function(x, gain=100, division=5, zeroplane=TRUE){
   }
 }
 
-#' Plot 3d thermal process maps
+#' Plot 3d thermal processing-maps
 #'
-#' @description Return a 3d thermal process result consisted of 3d surfaces for power dissipation efficiency eta and rheological stability
+#' @description Return a 3d thermal process result consisted of 3d surfaces for power dissipation efficiency eta and rheological stability coefficient
 #' xi respectively.
 #' @param x Regression results from modeling functions such as \code{\link[TPMplt:SVRModel]{SVRModel}}.
-#' @param dvs A positive integer to set the divisions for all labels in two surface 3d plots. The default value is 5.
+#' @param dvs A positive integer to set the divisions for x, y and z labels in two 3d surface plots. The default value is 5.
 #'
 #' @import rgl
 #' @return Two 3d surface plots: the left one denotes power dissipation efficiency factor eta, while the right one is for rheological stability
-#' xi. A zero plane for xi value is added in the right plots for determining unstable region.
+#' xi. A zero plane, z=0, for xi value is added in the right plots for determining unstable region.
 #' @export TPM3dplt
 #'
 #' @examples
@@ -163,7 +163,7 @@ basic3d <- function(x, gain=100, division=5, zeroplane=TRUE){
 #' DMM <- DMMprocess(epstable)
 #' PLTbd <- SVRModel(DMM)
 #' TPM3dplt(PLTbd)
-#' @keywords "PLTbuilder" "TPM3dplt"
+#' @keywords "PLTbuilder"
 TPM3dplt <- function(x, dvs=5){
   # input data check
   if(!any(class(x)=="PLTbuilder")){

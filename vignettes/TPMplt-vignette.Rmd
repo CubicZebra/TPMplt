@@ -18,11 +18,11 @@ knitr::opts_chunk$set(
 
 ## Main functions
 
-TPMplt is a tool-kit for building and visualizing the dynmaic materials modeling (DMM), suggested by [Prasad and Gegel](https://link.springer.com/article/10.1007/BF02664902). It provides an easy approach to calculate constructive functions and other related coefficients based on a given strain condiiton. 2D and 3D processing-maps with temperature as its x axis, while logarithm strain rate as its y axis are also available.
+TPMplt is a tool-kit for building and visualizing the dynmaic materials model (DMM), suggested by [Prasad and Gegel](https://link.springer.com/article/10.1007/BF02664902). It provides an easy approach to calculate constructive functions and other related material constants based on a given strain condiiton. 2D and 3D processing-maps with temperature as its x axis, while logarithm strain rate as its y axis are also available.
 
 ## Input data
 
-Valid data for TPMplt strictly obey the management logic of [VBTree package](https://cran.r-project.org/web/packages/VBTree/index.html). Additionally, factors for temperature (celsius) and strain rates should be written in the format of pure numeric. All different variables are desired to be connected using "-". For example, if there's a strain data collected in the conditions of 900 celsius, $10^{-3}$ strain rate, "0.001-Strain-900" is one of available column names for this data, rather than "10e-3-Strain-T900", "SR0.001-Strain-1173K" or such like.
+Valid data for TPMplt strictly obey the management logic in [VBTree package](https://cran.r-project.org/web/packages/VBTree/index.html). Additionally, factors for temperature (celsius) and strain rates should be written in the format of pure numeric. All different variables are desired to be connected using "-" symbol. For example, if there's a strain data collected in the conditions of 900 celsius, $10^{-3}$ strain rate, "0.001-Strain-900" is one of available column names for this data, rather than "10e-3_Strain_T900C", "SR0.001-Strain-1173K" or such like. If your data contains some unnecessary patterns, a certain degree of data cleaning for column names is required.
 
 The following codes partially display a typical valid data for TPMplt:
 
@@ -46,7 +46,7 @@ colnames(TPMdata)
 
 As we seen, all column names are arranged by the style of "(Strain&Stress)-(Temperature)-(Strain Rate)-(Other)". Under this circumstance, we call the layer for temperature is 2, while the layer for strain rate is 3.
 
-The function ```epsExtract``` is capable to export a strain rate-temperature table by specifying ```eps``` as the strain condition. However, ```lyT``` and ```lySR```, the two urgent arguments corresponding to layers for temperature and strain rate respectively, need correct declaration as well.
+The function ```epsExtract``` is capable to export a strain rate-temperature table by specifying ```eps``` as the strain condition. However, ```lyT``` and ```lySR```, the two necessary arguments corresponding to layers for temperature and strain rate respectively, require correct declaration as well.
 
 Executinge the following codes:
 
@@ -55,9 +55,9 @@ require(VBTree)
 dl2vbt(chrvec2dl(colnames(TPMdata)))
 ```
 
-The complete structure for all variables is showed. As the result showed above, there're 7 temperatures and 4 strain rates in our summary table, therefore the levels for temperature and strain rate are 7 and 4 respectively. Based on all introduced knowledge, we can easily find that all factors will be corresponded with a unique coordinates of (layer, level). For example, we can define the factor "950" is located in layer 2, level 2.
+The complete structure for all variables is showed. As the result showed above, there're 7 temperatures and 4 strain rates in our summary table, therefore the numbers of level for temperature and strain rate are 7 and 4 respectively. Based on all introduced knowledge, we can easily find that all factors will be corresponded with a unique identity with the format as (layer, level). For example, we can define the factor "950" is located in layer 2, level 2.
 
-If we want the strain rate-temperature table in condition of 0.7 strain, running the following codes the result will be returned automatically:
+If we want the strain rate-temperature table in condition of 0.7 strain, by running the following codes the result will be returned automatically:
 
 ```{r}
 epstable <- epsExtract(TPMdata, eps = 0.7, lyT = 2, lySR = 3)
@@ -66,18 +66,18 @@ epstable
 
 Pay attention, for correct exporting, the number of levels for Strain and Stress must be 2 in our input data.
 
-Additionally, although the function ```epsExtract``` can automatically read the layer and levels for Strain and Stress using specific regex in most conditions, it is not guaranteed to be matched correctly everytime. If mismatch occurs, please manually set the argument ```manual``` in ```epsExtract``` according to its R document.
+Additionally, although the function ```epsExtract``` can automatically read the layer and levels in this layer for Strain and Stress using some specific regexs in most conditions, it is not guaranteed to be matched correctly everytime. If mismatch occurs, please manually set the argument ```manual``` in ```epsExtract``` according to its R document.
 
 ## Automatic calculation
 
-On the basis of dynamic materials modeling (DMM), constructive function and all material coefficients can be calculated from a certain strain rate-temperature table. The function ```DMMprocess``` has built in all steps for DMM processing. Applying it on our previous result, the complete output can be observed as following:
+On the basis of dynamic materials modeling (DMM), constructive function and all material constants can be calculated from a certain strain rate-temperature table. The function ```DMMprocess``` includes all steps for DMM processing. Applying it on our previous result (strain rate-temperature table by specific value of strain), the complete output can be observed as following:
 
 ```{r}
 DMM <- DMMprocess(epstable)
 DMM
 ```
 
-If the constructive function is the thing we only concerned, set the argument ```consfuncPRT``` as TRUE:
+If the constructive function is the only thing we concerned about, set the argument ```consfuncPRT``` in ```DMMprocess``` as TRUE:
 
 ```{r}
 DMM <- DMMprocess(epstable, consfuncPRT = TRUE)
@@ -98,21 +98,21 @@ PLTbd <- SVRModel(DMM)
 
 ## 2D processing map visualization
 
-Function ```TPM2dplt``` can generate a thermal processing map from regression result easily. Following codes demonstrates the processing map from "PLTbd":
+Function ```TPM2dplt``` can generate a thermal processing map from regression result easily. Following codes demonstrates the processing map from "PLTbd" with default settings:
 
 ```{r, fig.show='hold', fig.height=4, fig.width=6}
 TPM2dplt(PLTbd)
 ```
 
-From the plot we can find that power dissipation efficiency factor eta is denoted by contour with gradual colors, while the rheological stability coefficient xi is represented by a gradient colours from green (high) to red (low). Annotation in top-left show the strain condition for current processing map.
+From the plot we can find that power dissipation efficiency factor eta is denoted by contour with gradient blue, while the rheological stability coefficient xi is represented by a gradient colours from green (high) to red (low). Annotation in top-left show the strain condition for current processing map.
 
-Locations for annotation, gradient colors for rheological stability coefficient xi is customizable in ```TPM2dplt``` function. But since the color for eta is fixed, please try not to use blue or such like, to avoid ambiguous result.
+Locations for annotation, gradient colors for rheological stability coefficient xi is customizable in ```TPM2dplt``` function. But since the color for eta is fixed, please try not to use blue or such like, to avoid obtaining an ambiguous result.
 
 ## 3D processing map visualization
 
-Function ```TPM3dplt``` can generate a thermal processing results as similar as ```TPM2dplt``` did. The difference is, eta and xi will be separately plotted.
+Function ```TPM3dplt``` can build a thermal processing results as similar as ```TPM2dplt``` did. The difference is, eta and xi will be separately plotted.
 
-By running the following code, we can easily obtain the results as Fig.1 showed.
+By running the following code, we can easily obtain the results as shown in the next figure.
 
 ```{r}
 TPM3dplt(PLTbd)
@@ -120,6 +120,6 @@ TPM3dplt(PLTbd)
 
 <img src="img/Img1.png" width="660">
 
-These two 3d plots are generated using through the rgl package, therefore it will be very convenient to utilize 3d rotation on our generated plots, for analysis in details.
+These two 3d surfaces are generated through the rgl package, therefore it will be very convenient to utilize 3d rotation on our plots for further analysis in details.
 
-Especially, the xi plots is coupled with a specific plane, z=0, in order to divide the stable and unstable regions.
+Especially, the xi plots is coupled with a specific plane, z=0, in order to make divisions for the stable and unstable regions.

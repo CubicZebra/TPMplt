@@ -1,13 +1,14 @@
 #' Auto output for strain rate vs. temperature table
 #'
 #' @description Automatically output the strain rate vs. temperature table, by a specified strain condition.
-#' @param data Input data frame with the style of \code{\link[VBTree:VBTree-package]{VBTree}}.
+#' @param data A data frame with \code{\link[VBTree:VBTree-package]{VBTree}} style. Pay attention, all factors in column names
+#' should be separated by "-" symbol, and factors for temperatures and strain rates should be saved in pure numeric style.
 #' @param eps A numeric value to specify strain condition.
 #' @param lyT An integer to specify the layer for temperature attribute in the vector binary tree.
 #' @param lySR An integer to specify the layer for strain rate attribute in the vector binary tree.
-#' @param manual An integer vector with the length of 3 where the 1st denotes the layer for Stress and Strain, while
-#' the 2nd and 3rd represent the levels for Strain and Stress, respectively. The default setting for this value is
-#' NULL to call the function \code{\link[TPMplt:lyIDdetector]{lyIDdetector}} for automatically generating this vector.
+#' @param manual An integer vector with the length of 3 where the 1st element denotes the layer for Stress and Strain,
+#' the 2nd and 3rd elements represent the levels for Strain and Stress, respectively. The default setting is NULL, which
+#' can call the function \code{\link[TPMplt:lyIDdetector]{lyIDdetector}} for automatical completion this vector.
 #'
 #' @return A list consist of a matrix table arranged by rows for strain rates while columns for temperatures, and a numeric
 #' value as strain condition for this strain rate-temperature table.

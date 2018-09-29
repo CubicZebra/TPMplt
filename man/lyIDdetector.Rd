@@ -7,12 +7,13 @@
 lyIDdetector(data, patterns = "[Ss][Tt][Rr]")
 }
 \arguments{
-\item{data}{Input data frame with the style of \code{\link[VBTree:VBTree-package]{VBTree}}.}
+\item{data}{A data frame with \code{\link[VBTree:VBTree-package]{VBTree}} style. Pay attention, all factors in column names
+should be separated by "-" symbol, and factors for temperatures and strain rates should be saved in pure numeric style.}
 
-\item{patterns}{Argument to determine layer of Strain and Stress. The default pattern uses "[Ss][Tt][Rr]".}
+\item{patterns}{A regex object to determine layer of Strain and Stress. The default pattern uses "[Ss][Tt][Rr]".}
 }
 \value{
-A list consists of the layer for Strain and Stress, the levels for Strain and Stress respectively in this layer.
+A list consisted of the layer, and the levels in this layer for Strain and Stress respectively.
 }
 \description{
 Function for detecting the locations for Strain and Stress in data frame. It is an key component for automatic
@@ -26,4 +27,4 @@ lyIDdetector(TPMdata)
 \seealso{
 \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[TPMplt:epsExtract]{TPMplt}}
 }
-\keyword{internal}
+\keyword{"epsExtract"}

@@ -2,20 +2,23 @@
 % Please edit documentation in R/TMZtester.API.R
 \name{TMZdatainput}
 \alias{TMZdatainput}
-\title{Read files exported from Thermec Master-Z tester to a summary data frame}
+\title{Read multiple files exported from Thermec Master-Z tester}
 \usage{
 TMZdatainput(makeidx = FALSE, ...)
 }
 \arguments{
-\item{makeidx}{Boolean to control the index column for summary table. Default setting is FALSE.}
+\item{makeidx}{A boolean value to control the index column, inserted in the first column.
+Default setting is FALSE.}
 
-\item{...}{Arguments to be past to \code{\link[TPMplt:API4TMZ]{API4TMZ}}.}
+\item{...}{Arguments to be passed to \code{\link[TPMplt:API4TMZ]{API4TMZ}}.}
 }
 \value{
-A data frame summary table for all input files.
+A summary data frame for all input files.
 }
 \description{
-Read files exported from Thermec Master-Z tester to a summary data frame
+Read data from multiple files with structurized file names, then generate
+a summary data frame. It will also be available for the files from other tester apparatus by
+correct setting.
 }
 \examples{
 \dontrun{
@@ -27,4 +30,4 @@ SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Working_Directory/")
 SummaryTable
 }
 }
-\keyword{internal}
+\keyword{"APIfunction"}

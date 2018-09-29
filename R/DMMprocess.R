@@ -1,17 +1,18 @@
 #' Dynamic material modeling from strain rate temperature table
 #'
-#' @description Dynamic material modeling from strain rate-temperature table returned from
-#' the function \code{\link[TPMplt:epsExtract]{epsExtract}}. And calculating the constructive
-#' function.
+#' @description Dynamic material modeling based on strain rate-temperature table returned from
+#' the function \code{\link[TPMplt:epsExtract]{epsExtract}}. Material constants as well as power
+#' dissipation efficiency factors and rheological stability coefficients in current conditions
+#' will be returned.
 #' @param x A strain rate-temperature table, returned from \code{\link[TPMplt:epsExtract]{epsExtract}}.
-#' @param consfuncPRT A boolean value to control result printing for constrcutive function. The
+#' @param consfuncPRT A boolean value to control result printing for constructive function. The
 #' default value uses FALSE.
 #' @param lgbase A numeric value to determine the logarithm base in calculation. The default
 #' value is exp(1).
-#' @param rnd An integer to specify the digit accuracy. Default setting is 0.01.
+#' @param rnd An integer to control the digit accuracy. Default setting is 2, means accurating to 0.01.
 #'
 #' @return Serial material constants, constructive function, eta table and xi table through
-#' dynamic material modeling developed by Gegel and Prasad.
+#' dynamic material model developed by Gegel and Prasad.
 #' @import VBTree stats
 #' @export DMMprocess
 #' @seealso \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[TPMplt:epsExtract]{epsExtract}}

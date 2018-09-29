@@ -2,7 +2,7 @@
 % Please edit documentation in R/TMZtester.API.R
 \name{API4TMZ}
 \alias{API4TMZ}
-\title{API to read files exported from Thermec Master-Z tester}
+\title{Read multiple files exported from Thermec Master-Z tester}
 \usage{
 API4TMZ(Cdl, wd = getwd(), ftype = ".csv", Straincln = 7,
   Stresscln = 8, startrow = 29)
@@ -26,10 +26,12 @@ Master-Z tester.}
 value is 29.}
 }
 \value{
-A matrix summary table for all input files.
+A matrix-like summary table for all input files.
 }
 \description{
-API to read files exported from Thermec Master-Z tester
+Read data from multiple files with structurized file names, then generate
+a summary table. It will also be available for the files from other tester apparatus by
+correct setting.
 }
 \examples{
 \dontrun{
@@ -41,4 +43,4 @@ SummaryTable <- API4TMZ(conditions, "/Your_Working_Directory/")
 SummaryTable
 }
 }
-\keyword{internal}
+\keyword{"APIfunction"}
