@@ -22,7 +22,7 @@ TPMplt is a tool-kit for building and visualizing the dynmaic materials model (D
 
 ## Input data
 
-Valid data for TPMplt strictly obey the management logic in [VBTree package](https://cran.r-project.org/web/packages/VBTree/index.html). Additionally, factors for temperature (celsius) and strain rates should be written in the format of pure numeric. All different variables are desired to be connected using "-" symbol. For example, if there's a strain data collected in the conditions of 900 celsius, $10^{-3}$ strain rate, "0.001-Strain-900" is one of available column names for this data, rather than "10e-3_Strain_T900C", "SR0.001-Strain-1173K" or such like. If your data contains some unnecessary patterns, a certain degree of data cleaning for column names is required.
+Valid data for TPMplt strictly obey the management logic in [VBTree package](https://CRAN.R-project.org/package=VBTree). Additionally, factors for temperature (celsius) and strain rates should be written in the format of pure numeric. All different variables are desired to be connected using "-" symbol. For example, if there's a strain data collected in the conditions of 900 celsius, $10^{-3}$ strain rate, "0.001-Strain-900" is one of available column names for this data, rather than "10e-3_Strain_T900C", "SR0.001-Strain-1173K" or such like. If your data contains some unnecessary patterns, a certain degree of data cleaning for column names is required.
 
 The following codes partially display a typical valid data for TPMplt:
 
@@ -38,7 +38,7 @@ Besides, it is common to obtain multiple exported files based on different exper
 
 ## Extraction based on given strain
 
-It is necessary to build the conceptions for layers and levels in layer for variables, defined by [VBTree package](https://cran.r-project.org/web/packages/VBTree/index.html). For example, run the following codes to check all column names in the demo dataset in TPMplt pacakge:
+It is necessary to build the conceptions for layers and levels in layer for variables, defined by [VBTree package](https://CRAN.R-project.org/package=VBTree). For example, run the following codes to check all column names in the demo dataset in TPMplt pacakge:
 
 ```{r}
 colnames(TPMdata)
