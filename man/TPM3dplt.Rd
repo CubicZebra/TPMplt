@@ -29,4 +29,5 @@ DMM <- DMMprocess(epstable)
 PLTbd <- SVRModel(DMM)
 TPM3dplt(PLTbd)
 }
-\keyword{"PLTbuilder"}
+\keyword{PLTbuilder}
+\keyword{Processing-map}

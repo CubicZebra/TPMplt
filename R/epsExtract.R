@@ -21,7 +21,7 @@
 #' # Find locations for temperature and strain rate:
 #' dl2vbt(chrvec2dl(colnames(TPMdata)))
 #' epsExtract(TPMdata, eps = 0.7, lyT = 2, lySR = 3)
-#' @keywords "SR-T.table" "epsExtract" "lyIDdetector"
+#' @keywords SR-T.table epsExtract lyIDdetector
 epsExtract <- function(data, eps, lyT, lySR, manual=NULL){
   # data: data.frame format
   # eps: epsilon of a specific strain

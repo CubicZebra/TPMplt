@@ -20,7 +20,7 @@
 #' DMM <- DMMprocess(epstable)
 #' PLTbd <- SVRModel(DMM)
 #' TPM2dplt(PLTbd)
-#' @keywords "PLTbuilder"
+#' @keywords PLTbuilder Processing-map
 TPM2dplt <- function(x, xloc=0.09, yloc=0.03, lowclr="red", mdclr="white", highclr="green"){
   # input data check
   if(!any(class(x)=="PLTbuilder")){
@@ -109,7 +109,7 @@ surfacebld <- function(x, grp=c("eta", "xi")){
 #' DMM <- DMMprocess(epstable)
 #' PLTbd <- SVRModel(DMM)
 #' PLT3dbd <- surfacebld(PLTbd, "eta")
-#' basic3d(PLT3dbd)
+#' basic3d(PLT3dbd, clrctrl="cm")
 #' @keywords internal
 basic3d <- function(x, gain=100, division=5, clrctrl=c("heat", "terrain", "topo", "cm", "rainbow"), zeroplane=TRUE){
   levx <- x[[2]]
@@ -178,7 +178,7 @@ basic3d <- function(x, gain=100, division=5, clrctrl=c("heat", "terrain", "topo"
 #' DMM <- DMMprocess(epstable)
 #' PLTbd <- SVRModel(DMM)
 #' TPM3dplt(PLTbd)
-#' @keywords "PLTbuilder"
+#' @keywords PLTbuilder Processing-map
 TPM3dplt <- function(x, dvs=5, etaclr="heat", xiclr="cm"){
   # input data check
   if(!any(class(x)=="PLTbuilder")){

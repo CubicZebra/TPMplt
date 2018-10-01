@@ -36,6 +36,6 @@ epsExtract(TPMdata, eps = 0.7, lyT = 2, lySR = 3)
 \seealso{
 \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[TPMplt:lyIDdetector]{lyIDdetector}}
 }
-\keyword{"SR-T.table"}
-\keyword{"epsExtract"}
-\keyword{"lyIDdetector"}
+\keyword{SR-T.table}
+\keyword{epsExtract}
+\keyword{lyIDdetector}

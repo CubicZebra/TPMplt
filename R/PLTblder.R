@@ -18,7 +18,7 @@
 #' DMM <- DMMprocess(epstable)
 #' PLTbd <- SVRModel(DMM)
 #' PLTbd
-#' @keywords "PLTbuilder" "SVRModel"
+#' @keywords PLTbuilder SVRModel
 SVRModel <- function(x, seqby=80){
   # input data check
   if(class(x)!="DMMresult"){

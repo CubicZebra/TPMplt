@@ -1,6 +1,6 @@
 #' Tool-Kit for Dynamic Materials Model and Thermal Processing Maps
 #'
-#' @name TPMplt
+#' @name Abstract-TPMplt
 #' @docType package
 #' @description Provides a simple approach for constructing dynamic materials modeling (DMM) suggested by Prasad and Gegel.
 #' It can easily generate various processing-maps based on this model as well. The calculation result in this package contains

@@ -37,6 +37,6 @@ DMM
 \seealso{
 \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[TPMplt:epsExtract]{epsExtract}}
 }
-\keyword{"DMMprocess"}
-\keyword{"DMMresult"}
-\keyword{"epsExtract"}
+\keyword{DMMprocess}
+\keyword{DMMresult}
+\keyword{epsExtract}

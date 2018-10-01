@@ -30,5 +30,5 @@ PLTbd
 \seealso{
 \code{\link[TPMplt:DMMprocess]{DMMprocess}}
 }
-\keyword{"PLTbuilder"}
-\keyword{"SVRModel"}
+\keyword{PLTbuilder}
+\keyword{SVRModel}

@@ -23,7 +23,7 @@
 #' epstable <- epsExtract(TPMdata, 0.7, 2, 3)
 #' DMM <- DMMprocess(epstable)
 #' DMM
-#' @keywords "DMMresult" "DMMprocess" "epsExtract"
+#' @keywords DMMprocess DMMresult epsExtract
 DMMprocess <- function(x, consfuncPRT=FALSE, lgbase=exp(1), rnd=2){
 
   # check the input data

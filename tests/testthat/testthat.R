@@ -28,7 +28,7 @@ TPM2dplt(PLTbd)
 TPM3dplt(PLTbd)
 
 
-# different input data for epsExtract()
+# test different input data for epsExtract()
 data1 <- TPMdata
 data2 <- data1 + 1
 colnames(data1) <- paste0(colnames(TPMdata), "-", "A")

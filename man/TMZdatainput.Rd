@@ -26,8 +26,8 @@ variable1 <- c("factor11", "factor12", "factor13")
 variable2 <- c("factor21", "factor22")
 variable3 <- c("factor31", "factor32", "factor33", "factor34")
 conditions <- list(variable1, variable2, variable3)
-SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Working_Directory/")
+SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Directory_for_data/")
 SummaryTable
 }
 }
-\keyword{"APIfunction"}
+\keyword{APIfunction}

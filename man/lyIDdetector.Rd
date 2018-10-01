@@ -27,4 +27,5 @@ lyIDdetector(TPMdata)
 \seealso{
 \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[TPMplt:epsExtract]{TPMplt}}
 }
-\keyword{"epsExtract"}
+\keyword{epsExtract}
+\keyword{lyIDdetector}

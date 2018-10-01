@@ -15,7 +15,7 @@
 #' require(VBTree)
 #' chrvec2dl(colnames(TPMdata))
 #' lyIDdetector(TPMdata)
-#' @keywords "epsExtract"
+#' @keywords lyIDdetector epsExtract
 lyIDdetector <- function(data, patterns="[Ss][Tt][Rr]"){
 
   # input data diagnose:

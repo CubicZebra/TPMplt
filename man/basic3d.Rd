@@ -29,6 +29,6 @@ epstable <- epsExtract(TPMdata, 0.7, 2, 3)
 DMM <- DMMprocess(epstable)
 PLTbd <- SVRModel(DMM)
 PLT3dbd <- surfacebld(PLTbd, "eta")
-basic3d(PLT3dbd)
+basic3d(PLT3dbd, clrctrl="cm")
 }
 \keyword{internal}
