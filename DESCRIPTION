@@ -22,7 +22,9 @@ Imports: VBTree,
     e1071,
     qpcR,
     grDevices,
-    rowr
+    rowr,
+    graphics,
+    stats
 Depends: R (>= 2.10)
 Suggests: testthat,
     knitr,
