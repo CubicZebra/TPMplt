@@ -1,8 +1,3 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 # TPMplt package
 [![CRAN Version](http://www.r-pkg.org/badges/version/TPMplt)](https://cran.r-project.org/package=TPMplt)
 [![Total RStudio Cloud Downloads](http://cranlogs.r-pkg.org/badges/grand-total/TPMplt?color=brightgreen)](https://cran.r-project.org/package=TPMplt)
@@ -32,11 +27,15 @@ TPMplt is a tool-kit for building and visualizing the dynmaic materials model (D
 
 ## Workflow
 
-raw_data
-    |
-vbt_data -> ```SSplots()```                                    -----------> ```TPM3dplt()```
-    |                                                          |
-    ------> ```epsExtract()``` -> ```DMMprocess()``` -> ```SVRModel()``` -> ```TPM2dplt()```
+```raw_data```  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;     
+```vbt_data``` &rarr; ```SSplots()```  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;  
+```epsExtract()```  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;  
+```DMMprocess()```  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;  
+```SVRModel()``` &rarr; {```TPM2dplt()```,```TPM3dplt()```}  
     
 ## Contact
 
