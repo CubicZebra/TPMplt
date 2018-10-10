@@ -106,7 +106,7 @@ DMMprocess <- function(x, consfuncPRT=FALSE, lgbase=exp(1), rnd=2){
   for (i in 1:dims[1]) {
     for (j in 1:dims[2]) {
       Tcond <- as.numeric(colnames(lgsinhx)[j])
-      SRcond <- as.numeric(rownames(lgsinhx)[i])
+      SRcond <- as.numeric(rownames(lgsinhx)[i]) #??
       temp <- exp(Q.Temp/(R.Cons*Tcond))
       Zmat[i,j] <- SRcond*temp
     }
