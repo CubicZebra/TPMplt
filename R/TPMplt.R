@@ -43,7 +43,7 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, clrctrl=rev(rainbow(7))[-1]){
   xily <- ggplot(data = data1, aes(data1[,1], data1[,2], z = data1[,4]))
   xily <- xily + geom_raster(aes(fill = data1[,4]), interpolate = TRUE) + scale_fill_gradientn(name="xi", colours=clrctrl)
 
-  ath_etaly <- xily + geom_contour(data = data2, aes(data2[,1], data2[,2], z=data2[,4], colour = stat(..level..)), inherit.aes = FALSE)
+  ath_etaly <- xily + geom_contour(data = data2, aes(data2[,1], data2[,2], z=data2[,4], colour = stat(..level..)), inherit.aes = TRUE)
   ath_etaly <- ath_etaly + my_theme + xlab("Temperature (Celsius)") + ylab("LogStrainRate (log(s^(-1)))") + labs(color="eta")
 
   # add annotation
