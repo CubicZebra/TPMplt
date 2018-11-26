@@ -45,6 +45,9 @@ SVRModel <- function(x, seqby=80){
   modelxi <- svm(xitable, xivalue, kernel = "radial", type = "eps")
 
   predeta <- as.vector(predict(modeleta, vartable))
+  maxeta <- max(predeta)
+  mineta <- min(predeta)
+  predeta <- (predeta - mineta)/(maxeta - mineta)
   predxi <- as.vector(predict(modelxi, vartable))
 
   etaresult <- cbind(vartable, rep("eta", len), predeta)

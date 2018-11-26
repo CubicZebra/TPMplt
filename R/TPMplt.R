@@ -5,11 +5,9 @@
 #' @param x Regression results from modeling functions such as \code{\link[TPMplt:SVRModel]{SVRModel}}.
 #' @param xloc Location for annotatin in x axis. The default value is 0.09.
 #' @param yloc Location for annotatin in y axis. The default value is 0.03.
-#' @param lowclr Colour for low rheological stability region. The default setting is "red".
-#' @param mdclr Colour between low and high rheological stability regions. The default setting uses "white".
-#' @param highclr Colour for high rheological stability region. The default setting is "green".
+#' @param clrctrl Colour vector to control eta background, the default value uses rainbow palette.
 #'
-#' @import ggplot2
+#' @import ggplot2 directlabels
 #' @return A 2d thermal processing-map with logarithm strain rate as its y axis while celsius temperature as its x axis. Strain conditon
 #' is showed in top-left in the figure. Power dissipation efficiency factor eta is denoted by gradient blue contours, and the rheological
 #' stability coefficient are represented by gradient background.
@@ -21,7 +19,7 @@
 #' PLTbd <- SVRModel(DMM)
 #' TPM2dplt(PLTbd)
 #' @keywords PLTbuilder Processing-map
-TPM2dplt <- function(x, xloc=0.09, yloc=0.03, lowclr="red", mdclr="white", highclr="green"){
+TPM2dplt <- function(x, xloc=0.09, yloc=0.03, clrctrl=rev(rainbow(7))[-1]){
   # input data check
   if(!any(class(x)=="PLTbuilder")){
     stop("input data must be a data frame with the attribute of PLTbuilder, returned from related functions", call. = FALSE)
@@ -43,9 +41,9 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, lowclr="red", mdclr="white", highc
   level <- NULL
 
   xily <- ggplot(data = data1, aes(data1[,1], data1[,2], z = data1[,4]))
-  xily <- xily + geom_raster(aes(fill = data1[,4]), interpolate = TRUE) + scale_fill_gradientn(name="xi", colours=c(lowclr, mdclr, highclr))
+  xily <- xily + geom_raster(aes(fill = data1[,4]), interpolate = TRUE) + scale_fill_gradientn(name="xi", colours=clrctrl)
 
-  ath_etaly <- xily + geom_contour(data = data2, aes(data2[,1], data2[,2], z=data2[,4], colour = stat(level)), inherit.aes = TRUE)
+  ath_etaly <- xily + geom_contour(data = data2, aes(data2[,1], data2[,2], z=data2[,4], colour = stat(..level..)), inherit.aes = FALSE)
   ath_etaly <- ath_etaly + my_theme + xlab("Temperature (Celsius)") + ylab("LogStrainRate (log(s^(-1)))") + labs(color="eta")
 
   # add annotation
@@ -53,6 +51,7 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, lowclr="red", mdclr="white", highc
   locx <- min(x[[1]][,1]) + (max(x[[1]][,1])-min(x[[1]][,1]))*xloc
   locy <- max(x[[1]][,2]) - (max(x[[1]][,2])-min(x[[1]][,2]))*yloc
   result <- ath_etaly + annotate("text", x=locx, y=locy, label=paste("Strain: ", SR, sep = ""), colour = "black")
+  result <- direct.label(result, method="top.pieces")
 
   return(result)
 }

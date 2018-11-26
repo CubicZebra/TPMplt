@@ -154,7 +154,7 @@ DMMprocess <- function(x, consfuncPRT=FALSE, lgbase=exp(1), rnd=2){
     }
   }
 
-  etatable <- as.data.frame((2*temptable)/(1-temptable))
+  etatable <- as.data.frame((2*temptable)/(1+temptable))
   rownames(etatable) <- rownames(lgsinhx)
   colnames(etatable) <- colnames(lgsinhx)
 
