@@ -27,19 +27,11 @@ TPMplt is a tool-kit for building and visualizing the dynmaic materials model (D
 
 ## Workflow
 
-```raw_data```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;
-```vbt_data``` &rarr; ```SSplots()```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;
-```epsExtract()```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;
-```DMMprocess()```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;
-```SVRModel()``` &rarr; {```TPM2dplt()```,```TPM3dplt()```}
+![Workflow Overview](/vignettes/img/demo_figs1.png)
 
 ## Processing Map Preview
 
-![Preview of 2d processing map (update on CRAN soon)](/vignettes/img/demo_figs.png)
+![Preview of 2d processing map (update on CRAN soon)](/vignettes/img/demo_figs2.png)
 
 ## Contact
 
