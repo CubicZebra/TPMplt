@@ -47,7 +47,22 @@ SVRModel <- function(x, seqby=80){
   predeta <- as.vector(predict(modeleta, vartable))
   maxeta <- max(predeta)
   mineta <- min(predeta)
-  predeta <- (predeta - mineta)/(maxeta - mineta)
+
+  #Modification for the values of eta
+  highscale <- rep(c(1,maxeta),2)
+  lowscale <- rep(c(0,mineta), each=2)
+  trun_scale <- min(highscale - lowscale)
+
+  if (trun_scale == 1 | maxeta <= 0 | mineta >= 1) {
+    predeta <- (predeta - mineta)/(maxeta - mineta)
+  } else if (maxeta < 1 & mineta > 0) {
+    predeta <- predeta
+  } else if (maxeta >= 1 & mineta < 1 ) {
+    predeta <- ((predeta - mineta)/(maxeta - mineta))*trun_scale + mineta
+  } else if (maxeta > 0 & mineta <= 0) {
+    predeta <- ((predeta - mineta)/(maxeta - mineta))*trun_scale
+  }
+
   predxi <- as.vector(predict(modelxi, vartable))
 
   etaresult <- cbind(vartable, rep("eta", len), predeta)
