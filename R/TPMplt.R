@@ -50,7 +50,8 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, clrctrl=rev(rainbow(7))[-1]){
   SR <- x[[2]]
   locx <- min(x[[1]][,1]) + (max(x[[1]][,1])-min(x[[1]][,1]))*xloc
   locy <- max(x[[1]][,2]) - (max(x[[1]][,2])-min(x[[1]][,2]))*yloc
-  result <- ath_etaly + annotate("text", x=locx, y=locy, label=paste("Strain: ", SR, sep = ""), colour = "black")
+  result <- ath_etaly + annotate("text", x=locx, y=locy, label=paste("Strain: ", SR, sep = ""), colour = "black") +
+    labs(title = expression(paste("Guide: Background=", xi, "; Contours=", eta, collapse  = "")))
   result <- direct.label(result, method="top.pieces")
 
   return(result)
