@@ -33,6 +33,10 @@ TPMplt is a tool-kit for building and visualizing the dynmaic materials model (D
 
 ![Preview of 2d processing map (update on CRAN soon)](/vignettes/img/demo_figs2.png)
 
+## Attention
+
+Some bugs were find and related functions are under testing now.
+
 ## Contact
 
 Author: ZHANG Chen

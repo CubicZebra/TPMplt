@@ -149,7 +149,7 @@ DMMprocess <- function(x, consfuncPRT=FALSE, lgbase=exp(1), rnd=2){
   for (i in 1:dims[1]) { # max i = 4
     for (j in 1:dims[2]) { # max j = 7
       bcd <- fitMat[,j] # d3 vector
-      lgstr <- log(as.numeric(rownames(lgsinhx)[i]), base = logbase)
+      lgstr <- log(as.numeric(lgSR[i]), base = logbase) #rownames(lgsinhx)[i]
       temptable[i,j] <- bcd[1]+2*bcd[2]*lgstr+3*bcd[3]*(lgstr^2)
     }
   }
