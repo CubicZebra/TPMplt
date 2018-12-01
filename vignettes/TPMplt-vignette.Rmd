@@ -91,10 +91,10 @@ DMM <- DMMprocess(epstable)
 DMM
 ```
 
-If the constructive function is the only thing we concerned about, set the argument ```consfuncPRT``` in ```DMMprocess``` as TRUE:
+If the constructive function is the only thing we concerned about, set the argument ```ConsFunc``` in ```DMMprocess``` as TRUE:
 
 ```{r}
-DMM <- DMMprocess(epstable, consfuncPRT = TRUE)
+DMM <- DMMprocess(epstable, ConsFunc = TRUE)
 ```
 
 
@@ -136,4 +136,4 @@ TPM3dplt(PLTbd)
 
 These two 3d surfaces are generated through the rgl package, therefore it will be very convenient to utilize 3d rotation on our plots for further analysis in details.
 
-Especially, the xi plots is coupled with a specific plane, z=0, in order to make divisions for the stable and unstable regions.
+Especially, the xi plots is coupled with a specific plane, z=0, in order to make divisions for the stable and unstable regions (doesn't included in demo fig). If the prediction for xi contained certain negative values, this plan will be visible in 3d surface plot.

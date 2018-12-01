@@ -31,9 +31,11 @@ epsExtract <- function(data, eps, lyT, lySR, manual=NULL){
   #         the 2nd and 3rd to identify the dimensions of Strain and Stress, respectively.
 
   # # test section
+  # data <- TPMdata
   # manual <- NULL
   # lyT <- 2
   # lySR <- 3
+  # eps <- 0.7
 
   # input data diagnose:
   if(!is.data.frame(data)){
@@ -60,69 +62,65 @@ epsExtract <- function(data, eps, lyT, lySR, manual=NULL){
 
   # make sub double lists to generate strain and stress vector binary trees
   subdl <- chrvec2dl(colnames(data))
+  subdl <- vbt2dl(dl2vbt(subdl)) # Fix the order
 
-  # ensure the fixed order
-  stablets <- dl2ts(subdl)
-  subdl <- ts2dl(stablets)
+  vbtfull <- dl2vbt(subdl)
 
   skip_layer <- c(lySS, lyT, lySR) # the layers which should be maintained
-
-  unfixlayer <- c()
-  unfixlayerlevels <- c()
-  fixlayer <- c()
-  fixlayerlevels <- c()
-
-  i <- 1
-  for (i in 1:length(subdl)){
-    if (!any(i %in% skip_layer)){
-      unfixlayerlevels <- append(unfixlayerlevels, length(subdl[[i]]))
-    }
-  }
+  unfixlayerlevels <- vbtfull[[2]][-skip_layer]
+  trvs.time <- prod(unfixlayerlevels)
 
   # make sub vector binary trees for strain and stress
   strain.subdl <- subdl
   strain.subdl[[lySS]] <- subdl[[lySS]][strainID]
-  strain.subvbt <- dl2vbt(strain.subdl)
+  strain.vec <- as.vector(dl2arr(strain.subdl))
 
   stress.subdl <- subdl
   stress.subdl[[lySS]] <- subdl[[lySS]][stressID]
-  stress.subvbt <- dl2vbt(stress.subdl)
+  stress.subarr <- dl2arr(stress.subdl)
+  stress.vec <- as.vector(stress.subarr)
 
-  vbtfull <- dl2vbt(subdl)
   trvsfull <- trvs(vbtfull)
+  arrfull <- vbt2arr(vbtfull)
 
-  # build data mapping for convenient export:
-  strain.data <- datavisit(data, strain.subvbt)
-  stress.data <- datavisit(data, stress.subvbt)
+  rpt1 <- length(dim(arrfull)) - 1
 
-  trvs.time <- prod(unfixlayerlevels)
   layerlevels <- dl2vbt(subdl)[[2]]
 
-  dataints <- array(NA, dim = c(layerlevels[lySR], layerlevels[lyT], trvs.time))
+  dataints <- array(NA, dim = c(layerlevels[lyT], layerlevels[lySR], trvs.time))
 
-  # data export dynamically
-  rpt2 <- length(strain.data[,1])
-  i <- 1
+  testmat <- array(c(1:28), dim=c(7,4,1))
+
+  rpt2 <- length(strain.vec)
   for (i in 1:rpt2){
-    fill <- stress.data[i,4][[1]][which.min(abs(strain.data[i,4][[1]]-eps))] # Amazing mapping!
-    locationSR <- as.numeric(stress.data[i,3][[1]][layerlevels[lySR]])
-    locationT <- as.numeric(stress.data[i,3][[1]][layerlevels[lyT]])
-    dataints.idx <- c(locationSR, locationT, i)
-    dataints[dataints.idx] <- fill
+    strain.idx <- which(trvsfull[,1] == strain.vec[i])
+    stress.idx <- which(trvsfull[,1] == stress.vec[i])
+
+    strain.coord <- as.vector(trvsfull[strain.idx,2][[1]])
+    stress.clname <- trvsfull[stress.idx,1][[1]]
+
+    strain <- data[,trvsfull[strain.idx,1][[1]]]
+    stress <- data[,trvsfull[stress.idx,1][[1]]]
+
+    idx <- which.min(abs(strain-eps))
+    fill <- stress[idx]
+
+    #print(fill)
+
+    stress.subarr[[which(stress.subarr== stress.clname)]] <- fill
   }
-  dataints <- apply(dataints, c(1,2), mean)
 
-  # make names
-  rownames(dataints) <- subdl[[lySR]]
-  colnames(dataints) <- subdl[[lyT]]
+  result_mat <- array(NA, dim = dim(stress.subarr))
+  for (i in 1:length(stress.subarr)){
+    result_mat[[i]] <- as.numeric(stress.subarr[[i]])
+  }
 
-  # reorder the matrix
-  sortT <-as.character(sort(as.numeric(colnames(dataints))))
-  dataints <- dataints[, sortT]
-  sortSR <-as.character(sort(as.numeric(rownames(dataints))))
-  dataints <- dataints[sortSR,]
+  result_mat <- apply(result_mat, c(lySR, lyT), mean)
 
-  result <- dataints
+  rownames(result_mat) <- subdl[[lySR]]
+  colnames(result_mat) <- subdl[[lyT]]
+
+  result <- result_mat
   result <- list("SRT.table"=result, "epsilon"=eps)
 
   class(result) <- "SR-T.table"

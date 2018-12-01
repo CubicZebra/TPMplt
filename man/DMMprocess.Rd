@@ -4,18 +4,27 @@
 \alias{DMMprocess}
 \title{Dynamic material modeling from strain rate temperature table}
 \usage{
-DMMprocess(x, consfuncPRT = FALSE, lgbase = exp(1), rnd = 2)
+DMMprocess(x, lgbase = exp(1), InteractMode = FALSE,
+  ConsFunc = FALSE, legendcex = 0.65, legendloc = "bottomright")
 }
 \arguments{
 \item{x}{A strain rate-temperature table, returned from \code{\link[TPMplt:epsExtract]{epsExtract}}.}
 
-\item{consfuncPRT}{A boolean value to control result printing for constructive function. The
+\item{lgbase}{A numeric value to specify the base of all logarithm calculations during building model.
+The default value uses exp(1).}
+
+\item{InteractMode}{A boolean value to control figures' output and the printout of related constants
+during calculations. Default value FALSE means all fitting plots will not be outputed. If these outputs
+are necessary, set this parameter as TRUE then follow the prompt messages.}
+
+\item{ConsFunc}{A boolean value to determine whether calculating for constructive equation. The
 default value uses FALSE.}
 
-\item{lgbase}{A numeric value to determine the logarithm base in calculation. The default
-value is exp(1).}
+\item{legendcex}{A numeric value to determine the legend scale. It is activated only when the parameter
+InteractMode is TRUE. The default value is 0.65.}
 
-\item{rnd}{An integer to control the digit accuracy. Default setting is 2, means accurating to 0.01.}
+\item{legendloc}{A character object to determine the location of legend. It is activated only when the
+parameter InteractMode is TRUE. The defualt value is "bottomright".}
 }
 \value{
 Serial material constants, constructive function, eta table and xi table through
@@ -31,8 +40,22 @@ will be returned.
 require(VBTree)
 dl2vbt(chrvec2dl(colnames(TPMdata)))
 epstable <- epsExtract(TPMdata, 0.7, 2, 3)
+
+# Without calculation for constitutive equation
 DMM <- DMMprocess(epstable)
-DMM
+print(DMM)
+
+\dontrun{
+# Calculating for constitutive equation but
+# Without plots printout.
+DMM <- DMMprocess(epstable, ConsFunc=TRUE)
+print(DMM)
+
+# Calculating for constitutive equation and
+# required fitting plots printout.
+DMMprocess(epstable, InteractMode=TRUE, ConsFunc=TRUE)
+}
+
 }
 \seealso{
 \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[TPMplt:epsExtract]{epsExtract}}

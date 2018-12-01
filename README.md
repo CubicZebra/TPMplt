@@ -31,11 +31,11 @@ TPMplt is a tool-kit for building and visualizing the dynmaic materials model (D
 
 ## Processing Map Preview
 
-![Preview of 2d processing map (update on CRAN soon)](/vignettes/img/demo_figs2.png)
+![Preview of 2d processing map](/vignettes/img/demo_figs2.png)
 
 ## Attention
 
-Some bugs were find and related functions are under testing now.
+Some bugs occur in data extraction which results incorrect output of ```epsExtract()``` function (in the CRAN version). These problems were fixed in Git version. New submission for CRAN is coming soon.
 
 ## Contact
 
