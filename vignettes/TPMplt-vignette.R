@@ -25,7 +25,7 @@ DMM <- DMMprocess(epstable)
 DMM
 
 ## ------------------------------------------------------------------------
-DMM <- DMMprocess(epstable, consfuncPRT = TRUE)
+DMM <- DMMprocess(epstable, ConsFunc = TRUE)
 
 ## ------------------------------------------------------------------------
 PLTbd <- SVRModel(DMM)
