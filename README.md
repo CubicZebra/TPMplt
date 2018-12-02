@@ -37,7 +37,7 @@ TPMplt is a tool-kit for building and visualizing the dynmaic materials model (D
 
 ## Attention
 
-Some bugs occur in data extraction which results incorrect output of ```epsExtract()``` function (in the CRAN version). These problems were fixed in Git version. New submission for CRAN is coming soon.
+Data correction functions are still under developement. Therefore for reliable output, pay attention that it is necessary to input the manually corrected data from all beginning.
 
 ## Contact
 
