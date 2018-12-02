@@ -1,8 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
+[![](https://cranlogs.r-pkg.org/badges/TPMplt)](https://cran.r-project.org/package=TPMplt)
 # TPMplt package
 
 **TPMplt**, short for thermal processing-map plot, is a tool-kit for constructing dynamic material model (DMM) and corresponding visualization
