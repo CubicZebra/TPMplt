@@ -300,13 +300,58 @@ DMMprocess <- function(x, lgbase=exp(1), InteractMode=FALSE, ConsFunc=FALSE, leg
 
     Q.ActivEnerg <- Q*0.001 # Unit: kJ/mol
 
+    # ##### Fitting Mode for Temperature correction #####
+    # scatter_mat <- matrix(NA, nrow = dims[1], ncol = dims[2])
+    # T_1 <- 1/(as.numeric(colnames(x)) + 273.15) # Convert to Kelvin
+    # lmlist <- list(list())[rep(1,dims[1])]
+    # for (i in 1:dims[1]) {
+    #   scatter_mat[i,] <- as.numeric(x[i,])
+    #   a <- T_1
+    #   lmlist[[i]] <- lm(scatter_mat[i,]~I(a^1))
+    # }
+    #
+    # temp_vec <- c()
+    # for (i in 1:dims[1]) {
+    #   a <- as.numeric(lmlist[[i]][[1]][2])
+    #   temp_vec <- append(temp_vec, a)
+    # }
+    #
+    # Slope <- temp_vec
+    # Tcorr.Mode <- lmlist
+    #
+    # if(InteractMode == TRUE){
+    #   cat("Show fitting plot of log_flow_stress vs. 1/T(K^-1)?")
+    #   ptr <- select.list(c("Yes", "No"))
+    #   if(ptr == "Yes"){
+    #     legendvec <- rownames(x)
+    #     yscale <- c(min(unlist(scatter_mat)), max(unlist(scatter_mat)))
+    #     xscale <- c(min(T_1), max(T_1))
+    #
+    #     labx <- "1/T(K^-1)"
+    #     laby <- expression(paste("log(", sigma, "/MPa)", sep = ""))
+    #
+    #     for(i in 1:dims[1]){
+    #       plot(T_1, scatter_mat[i,], type = "p", col = clrvec[i], pch=16, xlim = xscale, ylim = yscale, xlab = labx, ylab = laby)
+    #       lines(x=T_1, y=predict(lmlist[[i]]), col = clrvec[i], xlim = xscale, ylim = yscale, xlab = labx, ylab = laby)
+    #       if (i == dims[1]){
+    #         legend(legendloc,legend = legendvec, fill = clrvec[1:dims[2]], cex = legendcex, bg = "transparent", box.lty = 0)
+    #         par(new=FALSE)
+    #       } else {
+    #         par(new=TRUE)
+    #       }
+    #     }
+    #     cat("Values of Slope calculated from log(flow_stress) vs. 1/T(K^-1) is", Slope,"respectively\n")
+    #     invisible(readline(prompt="Press [enter] to continue"))
+    #   }
+    # }
+
     if(ConsFunc){
       cat("Constitutive equation in", eps, "strain:\nEpsilon=A{[sinh(Alpha*Sigma)]^n}*exp[-Q/(RT)]\nWhere A =",
           A, "s^-1", "\n      Alpha =", alpha.StressInd,
           "MPa^-1 = ", format(alpha.StressInd, scientific = TRUE), "Pa^-1\n      Q =", Q, "J/mol = ", Q.ActivEnerg,
           "kJ/mol\n      R = ", 8.314,"J/(mol*K)\n      Epsilon is strain rate\n      Sigma is flow stress\n      T is Temperature (K)", "\n\n")
     }
-    paras <- list(A = A, alpha = alpha.StressInd, n = n.Power, Q = Q.ActivEnerg, base = logbase, epsilon.strain = eps)
+    paras <- list(A = A, alpha = alpha.StressInd, n = n.Power, Q = Q.ActivEnerg, base = logbase, epsilon.strain = eps, Tcorr.n = n.StressInd) #, Tcorr.Mode = Tcorr.Mode)
   }
 
   scatter_mat <- matrix(NA, nrow = dims[2], ncol = dims[1])
