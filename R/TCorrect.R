@@ -2,7 +2,11 @@
 #'
 #' @param x Numeric vector as independent variable.
 #' @param y Numeric vector as dependent variable.
-#' @param sig Signif to control masking coefficients.
+#' @param sig Signif to control masking coefficients for polynomial items. Default value is 1.
+#' @param subsec A numeric value or vector for setting the original functions as a multi-function in
+#' order to apply dynamic polynomial fitting one by one.
+#' @param lmoutput A boolean value to control the output of liner models for all subsections. Default
+#' value is FALSE.
 #'
 #' @import stats
 #' @return A list contains independent variable and fitted dependent variable over the maximum value.
@@ -11,35 +15,76 @@
 #' @examples
 #' x <- TPMdata[,1]
 #' y <- TPMdata[,2]
-#' m <- basicPF(x, y, 0.99)
-#  print(m)
 #'
-#' @keywords internal
-basicPF <- function(x, y, sig){
+#' # Using 2 sections: start to x=0.3;
+#' # x=0.3 to the end:
+#' basicPF(x, y, subsec = 0.3)
+#'
+#' # Using 3 sections: start to x=0.015;
+#' # from 0.015 to 0.2; from 0.2 to the end:
+#' basicPF(x, y, subsec = c(0.015, 0.2))
+#'
+#' # Linear models output:
+#' basicPF(x, y, subsec = c(0.015, 0.2), lmoutput=TRUE)
+#' @keywords basicPF
+basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE){
 
   if(length(x) != length(y)){
     stop("Unequal length between x and y inputted.", call. = FALSE)
   }
 
+  if(any(subsec <= x[1]) | any(subsec >= x[length(x)])) {
+    stop("Specified argument subsec is out of range.", call. = FALSE)
+  }
+
+  if(is.null(subsec)){
+    subsec <- which.max(y)
+  }
+
   x <- as.vector(x)
   y <- as.vector(y)
 
-  rpt <- length(x)
-  idx <- which.max(y)
-  x1 <- x[idx:rpt]
-  y1 <- y[idx:rpt]
+  seclen <- length(subsec)
 
-  lmmod <- lm(y1~I(x1^1)+I(x1^2)+I(x1^3)+I(x1^4)+I(x1^5)+I(x1^6)+I(x1^7)) # stats
-  slt <- as.vector(summary(lmmod)$coefficients[,4] < sig)
-  coef_vec <- slt*as.vector(summary(lmmod)$coefficients[,1])
-
-  for (i in idx:rpt) {
-    xi <- x[i]
-    xi_vec <- c(1, xi, xi^2, xi^3, xi^4, xi^5, xi^6, xi^7)
-    fill <- as.numeric(coef_vec %*% xi_vec)
-    y[i] <- fill
+  temp_vec <- c(1)
+  for (i in 1:seclen) {
+    a <- which.min(abs(x - subsec[i]))
+    temp_vec <- append(temp_vec, a)
   }
-  result <- list(x=x, y=y)
+
+  rpt <- length(x)
+
+  spltidx_end <- temp_vec[-1] - 1
+  spltidx_end <- append(spltidx_end, rpt)
+
+  spltidx_start <- temp_vec
+
+  lmlist <- list(list())[rep(1,length(spltidx_start))]
+  for (j in 1:(length(spltidx_start))) {
+    x1 <- x[spltidx_start[j]:spltidx_end[j]]
+    y1 <- y[spltidx_start[j]:spltidx_end[j]]
+
+    lmmod <- lm(y1~I(x1^1)+I(x1^2)+I(x1^3)+I(x1^4)+I(x1^5)+I(x1^6)+I(x1^7)) # stats
+    if (lmoutput == TRUE) {
+      lmlist[[j]] <- lmmod
+    }
+
+    slt <- as.vector(summary(lmmod)$coefficients[,4] < sig)
+    coef_vec <- slt*as.vector(summary(lmmod)$coefficients[,1])
+
+    for (i in spltidx_start[j]:spltidx_end[j]) {
+      xi <- x[i]
+      xi_vec <- c(1, xi, xi^2, xi^3, xi^4, xi^5, xi^6, xi^7)
+      fill <- as.numeric(coef_vec %*% xi_vec)
+      y[i] <- fill
+    }
+  }
+
+  if (lmoutput == TRUE) {
+    result <- list(x=x, y=y, lmmodels=lmlist)
+  } else {
+    result <- list(x=x, y=y)
+  }
   return(result)
 }
 
@@ -52,19 +97,22 @@ basicPF <- function(x, y, sig){
 #' @param Manu An integer vector with the length of 3 where the 1st element denotes the layer for Stress and Strain,
 #' the 2nd and 3rd elements represent the levels for Strain and Stress, respectively. The default setting is NULL, which
 #' can call the function \code{\link[TPMplt:lyIDdetector]{lyIDdetector}} for automatical completion this vector.
-#' @param SignifCtrl A numeric value from 0 to 1, to determine remaining coefficients for the function \code{\link[stats:lm]{lm}}.
-#' The default value is 0.95.
+#' @param ... The control parameters pass on to the function \code{\link[TPMplt:basicPF]{basicPF}}.
 #'
 #' @import VBTree
 #' @return A \code{\link[VBTree:VBTree-package]{VBTree}} style data frame with fitted values for flow stress in high strain conditions.
 #' @export AllPF
 #'
 #' @examples
-#' SSplots(TPMdata, 2, mfrow=c(2, 2))
-#' x <- AllPF(TPMdata, SignifCtrl = 0.98)
+#' # Auto fitting
+#' x <- AllPF(TPMdata)
+#' SSplots(x, 2, mfrow=c(2, 2))
+#'
+#' # Manual fitting
+#' x <- AllPF(TPMdata, subsec = c(0.015, 0.2))
 #' SSplots(x, 2, mfrow=c(2, 2))
 #' @keywords AllPF
-AllPF <- function(x, Manu=NULL, SignifCtrl=0.95) {
+AllPF <- function(x, Manu=NULL, ...) {
   # test section
   # x <- TPMdata
   # Manu = NULL
@@ -93,7 +141,7 @@ AllPF <- function(x, Manu=NULL, SignifCtrl=0.95) {
   for (i in 1:rpt) {
     x1 <- x[,Strain_vec[i]]
     y1 <- x[,Stress_vec[i]]
-    rplc <- basicPF(x1, y1, sig = SignifCtrl) # Modi
+    rplc <- basicPF(x1, y1, ...) # Modi
     x[,Stress_vec[i]] <- rplc[[2]]
   }
 
@@ -159,6 +207,8 @@ Dvec <- function(x, y){
 #' @param Manu An integer vector with the length of 3 where the 1st element denotes the layer for Stress and Strain,
 #' the 2nd and 3rd elements represent the levels for Strain and Stress, respectively. The default setting is NULL, which
 #' can call the function \code{\link[TPMplt:lyIDdetector]{lyIDdetector}} for automatical completion this vector.
+#' @param ... The control parameters pass on to the function \code{\link[TPMplt:AllPF]{AllPF}}. Due to vibration of curves, it is
+#' strongly recommand to set the parameter \code{subsec} experientially on the basis of all the experimental data to be processed.
 #'
 #' @import VBTree
 #' @return A \code{\link[VBTree:VBTree-package]{VBTree}} style data frame with temperature-corrected values for flow stress
@@ -166,12 +216,19 @@ Dvec <- function(x, y){
 #' @export TCorrect
 #'
 #' @examples
-#' # Using the parameters of steel as example
-#' x <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9)
+#' # Check the raw data
+#' SSplots(TPMdata, 2, mfrow=c(2, 2))
 #'
+#' # The split strain conditions for 'TPMdata' can be set as 0.015 and 0.1
+#' x <- AllPF(TPMdata, subsec = c(0.015, 0.1))
 #' SSplots(x, 2, mfrow=c(2, 2))
+#'
+#' # Applying aforementioned subsection conditions for all curves,
+#' # using the parameters of steel as example:
+#' x1 <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9, subsec=c(0.015, 0.1))
+#' SSplots(x1, 2, mfrow=c(2, 2))
 #' @keywords TCorrect AllPF
-TCorrect <- function(x, ly_SR, ly_T, C, rho, logbase=exp(1), CorrCons=NULL, CorrSR=NULL, Manu=NULL){
+TCorrect <- function(x, ly_SR, ly_T, C, rho, logbase=exp(1), CorrCons=NULL, CorrSR=NULL, Manu=NULL, ...){
 
   # # test section
   # x <- TPMdata
@@ -192,7 +249,7 @@ TCorrect <- function(x, ly_SR, ly_T, C, rho, logbase=exp(1), CorrCons=NULL, Corr
   }
 
   raw_x <-x
-  x <- AllPF(x)
+  x <- AllPF(x, ...)
 
   m <- chrvec2dl(colnames(x))
   m <- arr2vbt(dl2arr(m))
@@ -231,7 +288,6 @@ TCorrect <- function(x, ly_SR, ly_T, C, rho, logbase=exp(1), CorrCons=NULL, Corr
     T <- as.numeric(Tchr) + 273.15
 
     lmid <- which(mdl[[ly_SR]] == SRchr)
-    temp_lm <- refDMM.LM[[lmid]]
 
     if (is.null(CorrCons)){
       eta_e <- 0.316*log(SR, base = 10) + 0.95

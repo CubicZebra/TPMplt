@@ -4,7 +4,7 @@
 \alias{AllPF}
 \title{Fit all flow stress values in high strain conditions}
 \usage{
-AllPF(x, Manu = NULL, SignifCtrl = 0.95)
+AllPF(x, Manu = NULL, ...)
 }
 \arguments{
 \item{x}{A data frame with \code{\link[VBTree:VBTree-package]{VBTree}} style. Pay attention, all factors in column names
@@ -14,8 +14,7 @@ should be separated by "-" symbol, and factors for temperatures and strain rates
 the 2nd and 3rd elements represent the levels for Strain and Stress, respectively. The default setting is NULL, which
 can call the function \code{\link[TPMplt:lyIDdetector]{lyIDdetector}} for automatical completion this vector.}
 
-\item{SignifCtrl}{A numeric value from 0 to 1, to determine remaining coefficients for the function \code{\link[stats:lm]{lm}}.
-The default value is 0.95.}
+\item{...}{The control parameters pass on to the function \code{\link[TPMplt:basicPF]{basicPF}}.}
 }
 \value{
 A \code{\link[VBTree:VBTree-package]{VBTree}} style data frame with fitted values for flow stress in high strain conditions.
@@ -24,8 +23,12 @@ A \code{\link[VBTree:VBTree-package]{VBTree}} style data frame with fitted value
 Fit all flow stress values in high strain conditions
 }
 \examples{
-SSplots(TPMdata, 2, mfrow=c(2, 2))
-x <- AllPF(TPMdata, SignifCtrl = 0.98)
+# Auto fitting
+x <- AllPF(TPMdata)
+SSplots(x, 2, mfrow=c(2, 2))
+
+# Manual fitting
+x <- AllPF(TPMdata, subsec = c(0.015, 0.2))
 SSplots(x, 2, mfrow=c(2, 2))
 }
 \keyword{AllPF}

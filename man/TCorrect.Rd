@@ -5,7 +5,7 @@
 \title{Temperature correction function}
 \usage{
 TCorrect(x, ly_SR, ly_T, C, rho, logbase = exp(1), CorrCons = NULL,
-  CorrSR = NULL, Manu = NULL)
+  CorrSR = NULL, Manu = NULL, ...)
 }
 \arguments{
 \item{x}{A data frame with \code{\link[VBTree:VBTree-package]{VBTree}} style. Pay attention, all factors in column names
@@ -32,6 +32,9 @@ model will be built on the basis of that.}
 \item{Manu}{An integer vector with the length of 3 where the 1st element denotes the layer for Stress and Strain,
 the 2nd and 3rd elements represent the levels for Strain and Stress, respectively. The default setting is NULL, which
 can call the function \code{\link[TPMplt:lyIDdetector]{lyIDdetector}} for automatical completion this vector.}
+
+\item{...}{The control parameters pass on to the function \code{\link[TPMplt:AllPF]{AllPF}}. Due to vibration of curves, it is
+strongly recommand to set the parameter \code{subsec} experientially on the basis of all the experimental data to be processed.}
 }
 \value{
 A \code{\link[VBTree:VBTree-package]{VBTree}} style data frame with temperature-corrected values for flow stress
@@ -41,10 +44,17 @@ in high strain conditions.
 Temperature correction function
 }
 \examples{
-# Using the parameters of steel as example
-x <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9)
+# Check the raw data
+SSplots(TPMdata, 2, mfrow=c(2, 2))
 
+# The split strain conditions for 'TPMdata' can be set as 0.015 and 0.1
+x <- AllPF(TPMdata, subsec = c(0.015, 0.1))
 SSplots(x, 2, mfrow=c(2, 2))
+
+# Applying aforementioned subsection conditions for all curves,
+# using the parameters of steel as example:
+x1 <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9, subsec=c(0.015, 0.1))
+SSplots(x1, 2, mfrow=c(2, 2))
 }
 \keyword{AllPF}
 \keyword{TCorrect}

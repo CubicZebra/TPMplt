@@ -4,14 +4,20 @@
 \alias{basicPF}
 \title{Basic fitting function for stress-strain curve.}
 \usage{
-basicPF(x, y, sig)
+basicPF(x, y, sig = 1, subsec = NULL, lmoutput = FALSE)
 }
 \arguments{
 \item{x}{Numeric vector as independent variable.}
 
 \item{y}{Numeric vector as dependent variable.}
 
-\item{sig}{Signif to control masking coefficients.}
+\item{sig}{Signif to control masking coefficients for polynomial items. Default value is 1.}
+
+\item{subsec}{A numeric value or vector for setting the original functions as a multi-function in
+order to apply dynamic polynomial fitting one by one.}
+
+\item{lmoutput}{A boolean value to control the output of liner models for all subsections. Default
+value is FALSE.}
 }
 \value{
 A list contains independent variable and fitted dependent variable over the maximum value.
@@ -22,7 +28,16 @@ Basic fitting function for stress-strain curve.
 \examples{
 x <- TPMdata[,1]
 y <- TPMdata[,2]
-m <- basicPF(x, y, 0.99)
 
+# Using 2 sections: start to x=0.3;
+# x=0.3 to the end:
+basicPF(x, y, subsec = 0.3)
+
+# Using 3 sections: start to x=0.015;
+# from 0.015 to 0.2; from 0.2 to the end:
+basicPF(x, y, subsec = c(0.015, 0.2))
+
+# Linear models output:
+basicPF(x, y, subsec = c(0.015, 0.2), lmoutput=TRUE)
 }
-\keyword{internal}
+\keyword{basicPF}
