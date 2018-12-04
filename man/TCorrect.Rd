@@ -47,6 +47,7 @@ Temperature correction function
 # Check the raw data
 SSplots(TPMdata, 2, mfrow=c(2, 2))
 
+\dontrun{
 # The split strain conditions for 'TPMdata' can be set as 0.015 and 0.1
 x <- AllPF(TPMdata, subsec = c(0.015, 0.1))
 SSplots(x, 2, mfrow=c(2, 2))
@@ -55,6 +56,7 @@ SSplots(x, 2, mfrow=c(2, 2))
 # using the parameters of steel as example:
 x1 <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9, subsec=c(0.015, 0.1))
 SSplots(x1, 2, mfrow=c(2, 2))
+}
 }
 \keyword{AllPF}
 \keyword{TCorrect}

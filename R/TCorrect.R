@@ -1,3 +1,62 @@
+#' Internal function for basicPF
+#'
+#' @param x Any R object.
+#' @param order Maximum order for linear model.
+#'
+#' @return Expression for function lm.
+#' @export chrgen1
+#'
+#' @examples
+#' x <- c(1:7)
+#' chrgen1(x, 5)
+#' @keywords internal
+chrgen1 <- function(x=NULL, order){
+  if (order == 1) {
+    x <- as.character(deparse(substitute(x)))
+    result <- paste("I(", x, "^1)", sep = "", collapse = "")
+  } else {
+    content <- paste(rep(as.character(deparse(substitute(x))), order), sep = "")
+    order_vec <- c(1:order)
+    perf <- paste(rep("I(", order), sep = "")
+    suff <- paste(rep(")+", order-1), sep = "")
+    suff <- append(suff, ")")
+
+    result <- paste(perf, content, rep("^", order), order_vec, suff, sep = "", collapse = "")
+  }
+  return(result)
+}
+
+
+#' Internal function for basicPF
+#'
+#' @param x Any R object.
+#' @param order Maximum order for linear model.
+#'
+#' @return Expression for function lm.
+#' @export chrgen2
+#'
+#' @examples
+#' x <- c(1:7)
+#' chrgen2(x, 5)
+#' @keywords internal
+chrgen2 <- function(x=NULL, order){
+  if (order == 1) {
+    x <- as.character(deparse(substitute(x)))
+    result <- paste("c(", x, "^1)", sep = "", collapse = "")
+  } else {
+    content <- paste(rep(as.character(deparse(substitute(x))), order), sep = "")
+    order_vec <- c(1:order)
+
+    suff <- paste(rep(",", order-1), sep = "")
+    suff <- append(suff, ")")
+
+    result <- paste(content, rep("^", order), order_vec, suff, sep = "", collapse = "")
+    result <- paste("c(1,", result, sep = "", collapse = "")
+  }
+  return(result)
+}
+
+
 #' Basic fitting function for stress-strain curve.
 #'
 #' @param x Numeric vector as independent variable.
@@ -7,6 +66,8 @@
 #' order to apply dynamic polynomial fitting one by one.
 #' @param lmoutput A boolean value to control the output of liner models for all subsections. Default
 #' value is FALSE.
+#' @param orderlist An integer vector to specify maximum order for each section. Default value NULL
+#' will use 7 in maximum for all sections.
 #'
 #' @import stats
 #' @return A list contains independent variable and fitted dependent variable over the maximum value.
@@ -27,7 +88,7 @@
 #' # Linear models output:
 #' basicPF(x, y, subsec = c(0.015, 0.2), lmoutput=TRUE)
 #' @keywords basicPF
-basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE){
+basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE, orderlist=NULL){
 
   if(length(x) != length(y)){
     stop("Unequal length between x and y inputted.", call. = FALSE)
@@ -39,6 +100,12 @@ basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE){
 
   if(is.null(subsec)){
     subsec <- which.max(y)
+  }
+
+  if(is.null(orderlist)){
+    order_vec <- rep(7, (length(subsec)+1))
+  } else {
+    order_vec <- orderlist
   }
 
   x <- as.vector(x)
@@ -64,7 +131,10 @@ basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE){
     x1 <- x[spltidx_start[j]:spltidx_end[j]]
     y1 <- y[spltidx_start[j]:spltidx_end[j]]
 
-    lmmod <- lm(y1~I(x1^1)+I(x1^2)+I(x1^3)+I(x1^4)+I(x1^5)+I(x1^6)+I(x1^7)) # stats
+    txt <- chrgen1(x1, order_vec[j])
+    lmtxt <- paste("lm(y1~", txt, ")", sep = "", collapse = "")
+
+    lmmod <- eval(parse(text = lmtxt))
     if (lmoutput == TRUE) {
       lmlist[[j]] <- lmmod
     }
@@ -74,7 +144,7 @@ basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE){
 
     for (i in spltidx_start[j]:spltidx_end[j]) {
       xi <- x[i]
-      xi_vec <- c(1, xi, xi^2, xi^3, xi^4, xi^5, xi^6, xi^7)
+      xi_vec <- eval(parse(text = chrgen2(xi, order_vec[j])))
       fill <- as.numeric(coef_vec %*% xi_vec)
       y[i] <- fill
     }
@@ -104,13 +174,11 @@ basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE){
 #' @export AllPF
 #'
 #' @examples
-#' # Auto fitting
-#' x <- AllPF(TPMdata)
-#' SSplots(x, 2, mfrow=c(2, 2))
-#'
-#' # Manual fitting
+#' \dontrun{
+#' # Use multi-function fitting for curves
 #' x <- AllPF(TPMdata, subsec = c(0.015, 0.2))
 #' SSplots(x, 2, mfrow=c(2, 2))
+#' }
 #' @keywords AllPF
 AllPF <- function(x, Manu=NULL, ...) {
   # test section
@@ -219,6 +287,7 @@ Dvec <- function(x, y){
 #' # Check the raw data
 #' SSplots(TPMdata, 2, mfrow=c(2, 2))
 #'
+#' \dontrun{
 #' # The split strain conditions for 'TPMdata' can be set as 0.015 and 0.1
 #' x <- AllPF(TPMdata, subsec = c(0.015, 0.1))
 #' SSplots(x, 2, mfrow=c(2, 2))
@@ -227,6 +296,7 @@ Dvec <- function(x, y){
 #' # using the parameters of steel as example:
 #' x1 <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9, subsec=c(0.015, 0.1))
 #' SSplots(x1, 2, mfrow=c(2, 2))
+#' }
 #' @keywords TCorrect AllPF
 TCorrect <- function(x, ly_SR, ly_T, C, rho, logbase=exp(1), CorrCons=NULL, CorrSR=NULL, Manu=NULL, ...){
 

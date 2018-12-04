@@ -4,7 +4,8 @@
 \alias{basicPF}
 \title{Basic fitting function for stress-strain curve.}
 \usage{
-basicPF(x, y, sig = 1, subsec = NULL, lmoutput = FALSE)
+basicPF(x, y, sig = 1, subsec = NULL, lmoutput = FALSE,
+  orderlist = NULL)
 }
 \arguments{
 \item{x}{Numeric vector as independent variable.}
@@ -18,6 +19,9 @@ order to apply dynamic polynomial fitting one by one.}
 
 \item{lmoutput}{A boolean value to control the output of liner models for all subsections. Default
 value is FALSE.}
+
+\item{orderlist}{An integer vector to specify maximum order for each section. Default value NULL
+will use 7 in maximum for all sections.}
 }
 \value{
 A list contains independent variable and fitted dependent variable over the maximum value.
