@@ -23,10 +23,8 @@ A \code{\link[VBTree:VBTree-package]{VBTree}} style data frame with fitted value
 Fit all flow stress values in high strain conditions
 }
 \examples{
-\dontrun{
 # Use multi-function fitting for curves
 x <- AllPF(TPMdata, subsec = c(0.015, 0.2))
 SSplots(x, 2, mfrow=c(2, 2))
-}
 }
 \keyword{AllPF}

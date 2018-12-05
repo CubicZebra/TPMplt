@@ -61,13 +61,14 @@ chrgen2 <- function(x=NULL, order){
 #'
 #' @param x Numeric vector as independent variable.
 #' @param y Numeric vector as dependent variable.
-#' @param sig Signif to control masking coefficients for polynomial items. Default value is 1.
 #' @param subsec A numeric value or vector for setting the original functions as a multi-function in
 #' order to apply dynamic polynomial fitting one by one.
 #' @param lmoutput A boolean value to control the output of liner models for all subsections. Default
 #' value is FALSE.
 #' @param orderlist An integer vector to specify maximum order for each section. Default value NULL
 #' will use 7 in maximum for all sections.
+#' @param SScurve A boolean value to specify whether applying overall correction. Defualt value TRUE
+#' means not applied.
 #'
 #' @import stats
 #' @return A list contains independent variable and fitted dependent variable over the maximum value.
@@ -87,8 +88,8 @@ chrgen2 <- function(x=NULL, order){
 #'
 #' # Linear models output:
 #' basicPF(x, y, subsec = c(0.015, 0.2), lmoutput=TRUE)
-#' @keywords basicPF
-basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE, orderlist=NULL){
+#' @keywords internal
+basicPF <- function(x, y, subsec=NULL, lmoutput=FALSE, orderlist=NULL, SScurve=TRUE){
 
   if(length(x) != length(y)){
     stop("Unequal length between x and y inputted.", call. = FALSE)
@@ -101,6 +102,8 @@ basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE, orderlist=NULL){
   if(is.null(subsec)){
     subsec <- which.max(y)
   }
+
+  # print(subsec)
 
   if(is.null(orderlist)){
     order_vec <- rep(7, (length(subsec)+1))
@@ -139,15 +142,25 @@ basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE, orderlist=NULL){
       lmlist[[j]] <- lmmod
     }
 
-    slt <- as.vector(summary(lmmod)$coefficients[,4] < sig)
-    coef_vec <- slt*as.vector(summary(lmmod)$coefficients[,1])
+    y[spltidx_start[j]:spltidx_end[j]] <- as.vector(predict(lmmod))
 
-    for (i in spltidx_start[j]:spltidx_end[j]) {
-      xi <- x[i]
-      xi_vec <- eval(parse(text = chrgen2(xi, order_vec[j])))
-      fill <- as.numeric(coef_vec %*% xi_vec)
-      y[i] <- fill
-    }
+  }
+
+  y[length(y)] <- y[length(y)-1] # Stabilization
+
+  # Singularity correction
+  corr_area <- 0
+  for (i in 2:(length(spltidx_start))) {
+    a <- y[spltidx_end[i-1]] - y[spltidx_start[i]]
+    temp <- y[spltidx_start[i]:spltidx_end[i]] + a
+    y[spltidx_start[i]:spltidx_end[i]] <- temp
+    corr_area <- corr_area + (a)*(x[spltidx_start[i]] - x[spltidx_end[i]])
+  }
+
+  corr_y <- corr_area/(x[length(x)] - x[1])
+
+  if (!SScurve){
+    y <- y - corr_y
   }
 
   if (lmoutput == TRUE) {
@@ -174,11 +187,9 @@ basicPF <- function(x, y, sig=1, subsec=NULL, lmoutput=FALSE, orderlist=NULL){
 #' @export AllPF
 #'
 #' @examples
-#' \dontrun{
 #' # Use multi-function fitting for curves
 #' x <- AllPF(TPMdata, subsec = c(0.015, 0.2))
 #' SSplots(x, 2, mfrow=c(2, 2))
-#' }
 #' @keywords AllPF
 AllPF <- function(x, Manu=NULL, ...) {
   # test section
@@ -287,16 +298,14 @@ Dvec <- function(x, y){
 #' # Check the raw data
 #' SSplots(TPMdata, 2, mfrow=c(2, 2))
 #'
-#' \dontrun{
-#' # The split strain conditions for 'TPMdata' can be set as 0.015 and 0.1
-#' x <- AllPF(TPMdata, subsec = c(0.015, 0.1))
+#' # The split strain conditions for 'TPMdata' can be set as 0.015 and 0.2
+#' x <- AllPF(TPMdata, subsec = c(0.015, 0.2))
 #' SSplots(x, 2, mfrow=c(2, 2))
 #'
 #' # Applying aforementioned subsection conditions for all curves,
 #' # using the parameters of steel as example:
-#' x1 <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9, subsec=c(0.015, 0.1))
+#' x1 <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9, subsec=c(0.015, 0.2))
 #' SSplots(x1, 2, mfrow=c(2, 2))
-#' }
 #' @keywords TCorrect AllPF
 TCorrect <- function(x, ly_SR, ly_T, C, rho, logbase=exp(1), CorrCons=NULL, CorrSR=NULL, Manu=NULL, ...){
 

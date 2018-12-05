@@ -4,15 +4,13 @@
 \alias{basicPF}
 \title{Basic fitting function for stress-strain curve.}
 \usage{
-basicPF(x, y, sig = 1, subsec = NULL, lmoutput = FALSE,
-  orderlist = NULL)
+basicPF(x, y, subsec = NULL, lmoutput = FALSE, orderlist = NULL,
+  SScurve = TRUE)
 }
 \arguments{
 \item{x}{Numeric vector as independent variable.}
 
 \item{y}{Numeric vector as dependent variable.}
-
-\item{sig}{Signif to control masking coefficients for polynomial items. Default value is 1.}
 
 \item{subsec}{A numeric value or vector for setting the original functions as a multi-function in
 order to apply dynamic polynomial fitting one by one.}
@@ -22,6 +20,9 @@ value is FALSE.}
 
 \item{orderlist}{An integer vector to specify maximum order for each section. Default value NULL
 will use 7 in maximum for all sections.}
+
+\item{SScurve}{A boolean value to specify whether applying overall correction. Defualt value TRUE
+means not applied.}
 }
 \value{
 A list contains independent variable and fitted dependent variable over the maximum value.
@@ -44,4 +45,4 @@ basicPF(x, y, subsec = c(0.015, 0.2))
 # Linear models output:
 basicPF(x, y, subsec = c(0.015, 0.2), lmoutput=TRUE)
 }
-\keyword{basicPF}
+\keyword{internal}

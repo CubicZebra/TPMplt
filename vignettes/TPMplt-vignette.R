@@ -16,8 +16,16 @@ colnames(TPMdata)
 require(VBTree)
 dl2vbt(chrvec2dl(colnames(TPMdata)))
 
+## ---- fig.show='hide'----------------------------------------------------
+Fitted_data <- AllPF(TPMdata, subsec = c(0.015, 0.2))
+SSplots(Fitted_data, 2, mfrow=c(2, 2))
+
+## ---- fig.show='hide'----------------------------------------------------
+TCorrect_data <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9, subsec=c(0.015, 0.2))
+SSplots(TCorrect_data, 2, mfrow=c(2, 2))
+
 ## ------------------------------------------------------------------------
-epstable <- epsExtract(TPMdata, eps = 0.7, lyT = 2, lySR = 3)
+epstable <- epsExtract(TCorrect_data, eps = 0.7, lyT = 2, lySR = 3)
 epstable
 
 ## ------------------------------------------------------------------------

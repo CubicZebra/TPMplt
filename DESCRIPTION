@@ -1,8 +1,8 @@
 Package: TPMplt
 Type: Package
 Title: Tool-Kit for Dynamic Materials Model and Thermal Processing Maps
-Version: 0.1.1
-Date: 2018-12-02
+Version: 0.1.2
+Date: 2018-12-05
 Authors@R: person("ZHANG_Chen", "Developer", email = "447974102@qq.com", role = c("aut", "com", "cre"))
 Description: Provides a simple approach for constructing dynamic materials
   modeling suggested by Prasad and Gegel <doi:10.1007/BF02664902>. It
