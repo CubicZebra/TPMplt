@@ -145,7 +145,7 @@ DMMprocess <- function(x, lgbase=exp(1), InteractMode=FALSE, ConsFunc=FALSE, leg
             par(new=TRUE)
           }
         }
-        cat("Mean value of beta.Stress.Index calculated from flow_stress vs. log_strain_rate fitting is", n.StressInd,"\n")
+        cat("Mean value of beta.Stress.Index calculated from flow_stress vs. log_strain_rate fitting is", beta.StressInd,"\n")
         invisible(readline(prompt="Press [enter] to continue"))
       }
     }
@@ -302,7 +302,7 @@ DMMprocess <- function(x, lgbase=exp(1), InteractMode=FALSE, ConsFunc=FALSE, leg
 
     # ##### Fitting Mode for Temperature correction #####
     # scatter_mat <- matrix(NA, nrow = dims[1], ncol = dims[2])
-    # T_1 <- 1/(as.numeric(colnames(x)) + 273.15) # Convert to Kelvin
+    # T_1 <- as.numeric(colnames(x)) + 273.15 # Convert to Kelvin
     # lmlist <- list(list())[rep(1,dims[1])]
     # for (i in 1:dims[1]) {
     #   scatter_mat[i,] <- as.numeric(x[i,])
