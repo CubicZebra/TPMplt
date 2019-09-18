@@ -2,59 +2,54 @@
 % Please edit documentation in R/TCorrect.R
 \name{TCorrect}
 \alias{TCorrect}
-\title{Temperature correction function}
+\title{Adiabatic heating effect correction}
 \usage{
-TCorrect(x, ly_SR, ly_T, C, rho, logbase = exp(1), CorrCons = NULL,
-  CorrSR = NULL, Manu = NULL, ...)
+TCorrect(x, lyT, lySR, eta, rho, c, StrainSeq, ACorrect = 1,
+  manual = NULL, Amplifier = 1000)
 }
 \arguments{
-\item{x}{A data frame with \code{\link[VBTree:VBTree-package]{VBTree}} style. Pay attention, all factors in column names
-should be separated by "-" symbol, and factors for temperatures and strain rates should be saved in pure numeric style.}
+\item{x}{A data frame with \code{\link[VBTree:VBTree-package]{VBTree}} style. Pay attention, all factors
+in column names should be separated by "-" symbol, and factors for temperatures and strain rates should be
+saved in pure numeric style.}
 
-\item{ly_SR}{An integer to specify the layer for strain rate attribute in the vector binary tree.}
+\item{lyT}{An integer to specify the layer for temperature attribute in the vector binary tree.}
 
-\item{ly_T}{An integer to specify the layer for temperature attribute in the vector binary tree.}
+\item{lySR}{An integer to specify the layer for strain rate attribute in the vector binary tree.}
 
-\item{C}{Numeric value for heat capacity constant of the material, the unit is J/(kg*K) in SI base.}
+\item{eta}{Efficiency of deformation heating.}
 
-\item{rho}{Numeric value for density of the materials, the unit is kg/m^3 in SI base.}
+\item{rho}{Density of materials, unit is g/cm^3.}
 
-\item{logbase}{A numeric value to specify the base of all logarithm calculations during building model. The default value
-uses exp(1).}
+\item{c}{Heat capacity of materials, unit is J/(kg*K).}
 
-\item{CorrCons}{A coefficient from 0 to 1 to specify thermal efficiency. Defualt value is NULL means this coefficient will
-be selected dynamically.}
+\item{StrainSeq}{A vector to specify the sequence for flow strain.}
 
-\item{CorrSR}{A coefficient corresponding to strain conditions to build a referential model for temperature correction.
-Default value NULL means the program will detect the maximum raw stress values then select a proper strain condition. Referential
-model will be built on the basis of that.}
+\item{ACorrect}{Coefficient to modify for density or heat capacity using different units. Default value
+is 1.}
 
-\item{Manu}{An integer vector with the length of 3 where the 1st element denotes the layer for Stress and Strain,
+\item{manual}{An integer vector with the length of 3 where the 1st element denotes the layer for Stress and Strain,
 the 2nd and 3rd elements represent the levels for Strain and Stress, respectively. The default setting is NULL, which
 can call the function \code{\link[TPMplt:lyIDdetector]{lyIDdetector}} for automatical completion this vector.}
 
-\item{...}{The control parameters pass on to the function \code{\link[TPMplt:AllPF]{AllPF}}. Due to vibration of curves, it is
-strongly recommand to set the parameter \code{subsec} experientially on the basis of all the experimental data to be processed.}
+\item{Amplifier}{Amplifier for linear fitting. Default value is 1000.}
 }
 \value{
-A \code{\link[VBTree:VBTree-package]{VBTree}} style data frame with temperature-corrected values for flow stress
-in high strain conditions.
+A data frame with \code{\link[VBTree:VBTree-package]{VBTree}} style including the adiabatic heating corrected
+flow stress using the StrainSeq as conditions.
 }
 \description{
-Temperature correction function
+Adiabatic heating effect correction
 }
 \examples{
-# Check the raw data
+\dontrun{
+# Constants of steels as example:
+dt_TC <- TCorrect(TPMdata, 2, 3, 0.9, 7.8, 502.416, seq(0, 0.9, 0.005))
+
+# Data without adiabatic heating correction
 SSplots(TPMdata, 2, mfrow=c(2, 2))
 
-# The split strain conditions for 'TPMdata' can be set as 0.015 and 0.2
-x <- AllPF(TPMdata, subsec = c(0.015, 0.2))
-SSplots(x, 2, mfrow=c(2, 2))
-
-# Applying aforementioned subsection conditions for all curves,
-# using the parameters of steel as example:
-x1 <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9, subsec=c(0.015, 0.2))
-SSplots(x1, 2, mfrow=c(2, 2))
+# Data with adiabatic heating correction
+SSplots(dt_TC, 2, mfrow=c(2, 2))
 }
-\keyword{AllPF}
+}
 \keyword{TCorrect}

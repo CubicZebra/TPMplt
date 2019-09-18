@@ -401,7 +401,7 @@ DMMprocess <- function(x, lgbase=exp(1), InteractMode=FALSE, ConsFunc=FALSE, leg
     for (j in 1:dims[2]) { # max j = 7
       bcd <- Coef_mat[j,c(2:4)] # d3 vector
       lgstr <- lgSR[i]
-      m.table[i,j] <- abs(bcd[1]+2*bcd[2]*lgstr+3*bcd[3]*(lgstr^2)) # Add abs!
+      m.table[i,j] <- bcd[1]+2*bcd[2]*lgstr+3*bcd[3]*(lgstr^2) # Add abs?
       above.table[i,j] <- 6*lgstr*bcd[3] + 2*bcd[2] # for xi
     }
   }
