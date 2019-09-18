@@ -2,8 +2,11 @@ Package: TPMplt
 Type: Package
 Title: Tool-Kit for Dynamic Materials Model and Thermal Processing Maps
 Version: 0.1.3
-Date: 2018-12-05
-Authors@R: person("ZHANG_Chen", "Developer", email = "447974102@qq.com", role = c("aut", "com", "cre"))
+Date: 2019-09-18
+Authors@R: c(person("Chen", "ZHANG", email = "447974102@qq.com", role = c("aut", "com", "cre", "cph")),
+  person("Rui", "LUO", role = c("ctb")), person("Lingxiao", "OUYANG", role = c("ctb")), 
+  person("Huakang", "BIAN", role = c("ctb")), person("Kenta", "YAMANAKA", role = c("ctb")),
+  person("Akihiko", "CHIBA", role = c("ctb")))
 Description: Provides a simple approach for constructing dynamic materials
   modeling suggested by Prasad and Gegel <doi:10.1007/BF02664902>. It
   can easily generate various processing-maps based on this model as well. The 
@@ -26,7 +29,8 @@ Imports: VBTree,
     stats,
     directlabels,
     utils,
-    RColorBrewer
+    RColorBrewer,
+    dlm
 Depends: R (>= 2.10)
 Suggests: testthat,
     knitr,

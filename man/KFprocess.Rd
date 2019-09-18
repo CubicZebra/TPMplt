@@ -23,7 +23,6 @@ A data frame with the identical shape as input data, but with the smoothed stres
 }
 \description{
 Kalman filter reducing the noise in raw data if it is necessary.
-data, if it is necessary.
 }
 \examples{
 \dontrun{

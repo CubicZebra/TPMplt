@@ -1,7 +1,6 @@
 #' Enhanced Kalman filter to reduce the noise of raw data
 #'
 #' @description Kalman filter reducing the noise in raw data if it is necessary.
-#' data, if it is necessary.
 #'
 #' @param x A data frame with \code{\link[VBTree:VBTree-package]{VBTree}} style. Pay attention, all factors
 #' in column names should be separated by "-" symbol, and factors for temperatures and strain rates should be
@@ -13,6 +12,8 @@
 #' \code{\link[dlm:dlmSmooth]{dlmSmooth}}.
 #'
 #' @return A data frame with the identical shape as input data, but with the smoothed stress values.
+#' @importFrom dlm dlmSmooth
+#' @importFrom dlm dlmModPoly
 #' @export KFprocess
 #' @seealso \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[dlm:dlmModPoly]{dlmModPoly}}, \code{\link[dlm:dlmSmooth]{dlmSmooth}}
 #'
@@ -54,7 +55,8 @@ KFprocess <- function(x, manual=NULL, ...){
 
   for(i in 1:rpt){
     ts1 <- ts(x[,stressvec[i]])
-    s <- dlm::dlmSmooth(ts1, dlm::dlmModPoly(1, ...))
+    mod1 <- dlmModPoly(1, ...)
+    s <- dlmSmooth(ts1, mod1)
     x[,stressvec[i]] <- as.vector(s$s)[1:(length(s$s)-1)]
   }
   return(x)
