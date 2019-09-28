@@ -63,7 +63,6 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
   } else{
     logbase <- lgbase
   }
-  # logbase <- lgbase
 
   dims <- dim(x)
   SR <- as.numeric(rownames(x))
@@ -314,6 +313,9 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
     }
     paras <- list(A = A, alpha = alpha.StressInd, n = n.Power, Q = Q.ActivEnerg, base = logbase, epsilon.strain = eps, Tcorr.n = n.StressInd) #, Tcorr.Mode = Tcorr.Mode)
   }
+
+  # recover logarithm base
+  logbase <- lgbase
 
   scatter_mat <- matrix(NA, nrow = dims[2], ncol = dims[1])
   lmlist <- list(list())[rep(1,dims[2])]
