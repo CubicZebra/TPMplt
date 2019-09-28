@@ -4,14 +4,14 @@
 \alias{DMMprocess}
 \title{Dynamic material modeling from strain rate temperature table}
 \usage{
-DMMprocess(x, lgbase = exp(1), InteractMode = FALSE,
-  ConsFunc = FALSE, legendcex = 0.65, legendloc = "bottomright")
+DMMprocess(x, lgbase = 10, InteractMode = FALSE, ConsFunc = FALSE,
+  legendcex = 0.65, legendloc = "bottomright")
 }
 \arguments{
 \item{x}{A strain rate-temperature table, returned from \code{\link[TPMplt:epsExtract]{epsExtract}}.}
 
 \item{lgbase}{A numeric value to specify the base of all logarithm calculations during building model.
-The default value uses exp(1).}
+The default value uses 10.}
 
 \item{InteractMode}{A boolean value to control figures' output and the printout of related constants
 during calculations. Default value FALSE means all fitting plots will not be outputed. If these outputs

@@ -17,11 +17,11 @@ require(VBTree)
 dl2vbt(chrvec2dl(colnames(TPMdata)))
 
 ## ---- fig.show='hide'----------------------------------------------------
-Fitted_data <- AllPF(TPMdata, subsec = c(0.015, 0.2))
+Fitted_data <- KFprocess(TPMdata, dV = 0.3, dW = 0.006)
 SSplots(Fitted_data, 2, mfrow=c(2, 2))
 
-## ---- fig.show='hide'----------------------------------------------------
-TCorrect_data <- TCorrect(TPMdata, 3, 2, 510.7896, 8050, CorrCons = 0.9, subsec=c(0.015, 0.2))
+## ----fig.show='hide'-----------------------------------------------------
+TCorrect_data <- TCorrect(TPMdata, 2, 3, 0.9, 7.8, 502.416, seq(0, 0.9, 0.02))
 SSplots(TCorrect_data, 2, mfrow=c(2, 2))
 
 ## ------------------------------------------------------------------------
