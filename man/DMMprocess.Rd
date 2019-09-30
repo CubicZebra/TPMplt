@@ -10,7 +10,7 @@ DMMprocess(x, lgbase = 10, InteractMode = FALSE, ConsFunc = FALSE,
 \arguments{
 \item{x}{A strain rate-temperature table, returned from \code{\link[TPMplt:epsExtract]{epsExtract}}.}
 
-\item{lgbase}{A numeric value to specify the base of all logarithm calculations during building model.
+\item{lgbase}{A numeric value to specify the base of the logarithm calculations for processing map.
 The default value uses 10.}
 
 \item{InteractMode}{A boolean value to control figures' output and the printout of related constants

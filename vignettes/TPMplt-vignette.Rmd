@@ -61,11 +61,11 @@ The complete structure for all variables is showed. As the result showed above, 
 
 ```SSplots``` is automatic completion for stress-strain curve plots, using [VBTree package](https://CRAN.R-project.org/package=VBTree) group strategy. It help researchers check the profiles of their experimental data conveniently. The argument ```grpby``` determines attribute to be grouped for each plot. As an instance, stress-strain curves grouped by strain rates, separated by temperature condition in each individual plot can be achieved using the code ```SSplots(TPMdata, 3, mfrow=c(3, 3))```. The layer for strain rate is 3, therefore the 2nd argument ```grpby``` is 3 (7 figures totally, therefore ```mfrow``` use a 3*3 division to ensure correct display):
 
-<img src="img/Img1.png" width="660">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img1.png" width="660">
 
 Grouped by temperature is also available, by running ```SSplots(TPMdata, 2, mfrow=c(2, 2))```, four figures will be exported as:
 
-<img src="img/Img2.png" width="660">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img2.png" width="660">
 
 However, multiple plots export using ```graphics``` is very sensitive to the Plots pane's in RStudio. Before plotting, please make sure the area of this pane is large enough to include all your output.
 
@@ -78,7 +78,7 @@ Fitted_data <- KFprocess(TPMdata, dV = 0.3, dW = 0.006)
 SSplots(Fitted_data, 2, mfrow=c(2, 2))
 ```
 
-<img src="img/Img3.png" width="660">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img3.png" width="660">
 
 Compared to the raw curves, we can find the fitted curves keep the most appearance with less vibrations or noises. For desired output, you may try different combinations of arguments ```dV``` and ```dW```. Help documentation and references might be helpful. The calculation of adiabatic heating correction will utilize the integral of those curves, the smoothing by Kalman will make a more robust output rationally.
 
@@ -91,7 +91,7 @@ TCorrect_data <- TCorrect(TPMdata, 2, 3, 0.9, 7.8, 502.416, seq(0, 0.9, 0.02))
 SSplots(TCorrect_data, 2, mfrow=c(2, 2))
 ```
 
-<img src="img/Img4.png" width="660">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img4.png" width="660">
 
 The 2nd and 3rd argument in ```TCorrect()``` are integers to specify the layer for temperatures and strain rates.
 
@@ -125,23 +125,23 @@ DMM <- DMMprocess(epstable, ConsFunc = TRUE)
 
 Additionally, if the argument ```InteractMode``` is TRUE, all computation process and corresponding fitting figures can be output step by step. There shows some results in following figures:
 
-<img src="img/Img5.png" width="460">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img5.png" width="460">
 
-<img src="img/Img6.png" width="460">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img6.png" width="460">
 
-<img src="img/Img7.png" width="460">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img7.png" width="460">
 
-<img src="img/Img8.png" width="460">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img8.png" width="460">
 
-<img src="img/Img9.png" width="460">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img9.png" width="460">
 
-<img src="img/Img10.png" width="460">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img10.png" width="460">
 
-<img src="img/Img11.png" width="460">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img11.png" width="460">
 
 All workflow control will be prompted in the console, something like:
 
-<img src="img/Img12.png" width="560">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img12.png" width="560">
 
 
 ## Preparation for visualization
@@ -178,7 +178,7 @@ By running the following code, we can easily obtain the results as shown in the 
 TPM3dplt(PLTbd)
 ```
 
-<img src="img/Img13.png" width="660">
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img13.png" width="660">
 
 These two 3d surfaces are generated through the rgl package, therefore it will be very convenient to utilize 3d rotation on our plots for further analysis in details.
 

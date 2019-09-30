@@ -5,7 +5,7 @@
 #' dissipation efficiency factors and rheological stability coefficients in current conditions
 #' will be returned.
 #' @param x A strain rate-temperature table, returned from \code{\link[TPMplt:epsExtract]{epsExtract}}.
-#' @param lgbase A numeric value to specify the base of all logarithm calculations during building model.
+#' @param lgbase A numeric value to specify the base of the logarithm calculations for processing map.
 #' The default value uses 10.
 #' @param InteractMode A boolean value to control figures' output and the printout of related constants
 #' during calculations. Default value FALSE means all fitting plots will not be outputed. If these outputs
