@@ -30,7 +30,7 @@ TPMplt is a tool-kit for building the dynmaic materials model (DMM), suggested b
 ## Workflow
 
 <div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/demo1.png" style="height:400px" alt="Workflow" align=center />
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/demo1.png" width="65%" height="65%" />
 </div>
 
 ### Kalman smoothing for noise reduction
@@ -40,7 +40,7 @@ The function  ```KFprocess()``` can apply Kalman smoothing for all raw data for 
 Following figures show the raw data with significant vibration in plastic deformation period:
 
 <div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img2.png" style="height:400px" alt="Workflow" align=center />
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img2.png" width="65%" height="65%" />
 </div>
 
 ![Raw stress-strain curves](https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img2.png){width=85%}
