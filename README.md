@@ -30,7 +30,7 @@ TPMplt is a tool-kit for building the dynmaic materials model (DMM), suggested b
 ## Workflow
 
 <div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/demo1.png" width = "300" height = "200" alt="Workflow" align=center />
+<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/demo1.png" style="height:600px" alt="Workflow" align=center />
 </div>
 
 ![Workflow Overview](https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/demo1.png){width=50%}
