@@ -95,6 +95,6 @@ Operations such as mouse rotation, zoom in and zoom out are also available in th
 
 ## Contact
 
-Author: ZHANG Chen
+Author: Chen Zhang
 
-Mail: 447974102@qq.com
+Mail: chen.zhang_06sept@foxmail.com

@@ -15,7 +15,8 @@
 #' @param startrow An integer to ignore the prefix rows for testing conditions. Default
 #' value is 29.
 #'
-#' @import rowr VBTree utils stats
+#' @import VBTree utils stats
+#' @importFrom methods as
 #' @return A matrix-like summary table for all input files.
 #' @export API4TMZ
 #'
@@ -30,6 +31,47 @@
 #' }
 #' @keywords APIfunction
 API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv", Straincln=7, Stresscln=8, startrow=29){
+
+  calc_len <- function(data){
+    result<-ifelse(is.null(nrow(data)),length(data),nrow(data))
+    return(result)
+  }
+
+  vert <- function(object){
+    if(is.list(object)){
+      object<-cbind(object)
+    }
+    return(object)
+  }
+
+  cache <- function(x,length.out=calc_len(x),fill=NULL,preserveClass=TRUE)
+  {
+    xclass<-class(x)
+    input<-lapply(vert(x),unlist)
+    results<-as.data.frame(lapply(input,rep,length.out=length.out))
+    if(length.out> calc_len(x) && !is.null(fill))
+    {
+      results<-t(results)
+      results[(length(unlist(x))+1):length(unlist(results))]<-fill
+      results<-t(results)
+    }
+    if(preserveClass)
+      results<-as2(results,xclass)
+    return(results)
+  }
+
+  as2 <- function(object,class)
+  {
+    object<-as.matrix(object)
+    if(class=='factor')
+      return(as.factor(as.character(object)))
+    if(class=='data.frame')
+      return(as.data.frame(object))
+    else
+      return(as(object,class))
+  }
+
+
   if(all(is.character(unlist(Cdl)))==F){
     stop("input list must double list.", call. = FALSE)
   } else{
@@ -55,6 +97,15 @@ API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv", Straincln=7, Stresscln=8, sta
     temp_data <- temp_data[which(temp_data[,2]==" 1"), c(Straincln, Stresscln)]
     data <- temp_data
 
+    arbi_combine <-function(..., fill=NULL)
+    {
+      entry <-list(...)
+      entry<-lapply(entry, vert)
+      maxlength<-max(unlist(lapply(entry, calc_len)))
+      bufferedInputs<-lapply(entry, cache, length.out=maxlength, fill, preserveClass=FALSE)
+      return(Reduce(cbind.data.frame, bufferedInputs))
+    }
+
     # make data summary table
     clnnames <- c()
     i <- 1
@@ -65,7 +116,7 @@ API4TMZ <- function(Cdl, wd=getwd(), ftype=".csv", Straincln=7, Stresscln=8, sta
       temp_data <- apply(temp_data, 2, as.numeric)
       temp_clnnames <- c(paste("Strain", name[i], sep = "-"), paste("Stress", name[i], sep = "-"))
       clnnames <- append(clnnames, temp_clnnames)
-      data <- rowr::cbind.fill(data, temp_data)
+      data <- arbi_combine(data, temp_data)
     }
     data <- data[,-c(1:2)] # Delete initial temp data
     colnames(data) <- clnnames

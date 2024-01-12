@@ -11,9 +11,9 @@
 #' 2D plots are built using ggplot2 while 3D plots are constructed by rgl. Especially, 3D plots will separately generate two
 #' 3D surfaces, for power dissipation efficiency eta, and rheological stability coefficient xi, respectively.
 #' @author
-#' ZHANG Chen
+#' Chen Zhang
 #'
-#' Maintainer: ZHANG Chen <447974102@qq.com>
+#' Maintainer: Chen Zhang <chen.zhang_06sept@foxmail.com>
 #' @references
 #' Prasad, YVRK, Gegel, HL, Doraivelu, SM, Malas, JC, Morgan, JT, Lark, KA & Barker, DR (1984). Modeling of dynamic material
 #' behavior in hot deformation: forging of Ti-6242. Metallurgical Transactions A, 15, 1883-1892.
@@ -22,7 +22,7 @@
 #' @seealso
 #' \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[ggplot2:ggplot2-package]{ggplot2}}, \code{\link[rgl:rgl-package]{rgl}}
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Check the factors in column names of input data:
 #' # Note: Temperature in layer2, Strain Rate in layer3.
 #' require(VBTree)

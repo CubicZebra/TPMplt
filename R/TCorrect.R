@@ -18,7 +18,7 @@
 #' @seealso \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[dlm:dlmModPoly]{dlmModPoly}}, \code{\link[dlm:dlmSmooth]{dlmSmooth}}
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # raw data without smoothing:
 #' SSplots(TPMdata, 2, mfrow=c(2, 2))
 #'
@@ -147,7 +147,7 @@ T_get <- function(x, eta1, rho1, c1, ACorrect1=1, manual1=NULL){
 #' @export TCorrect
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Constants of steels as example:
 #' dt_TC <- TCorrect(TPMdata, 2, 3, 0.9, 7.8, 502.416, seq(0, 0.9, 0.005))
 #'

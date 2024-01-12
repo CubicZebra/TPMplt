@@ -3,7 +3,6 @@
 \docType{package}
 \name{Abstract-TPMplt}
 \alias{Abstract-TPMplt}
-\alias{Abstract-TPMplt-package}
 \title{Tool-Kit for Dynamic Materials Model and Thermal Processing Maps}
 \description{
 Provides a simple approach for constructing dynamic materials modeling (DMM) suggested by Prasad and Gegel.
@@ -18,7 +17,7 @@ DMMprocess builds the dynamic material model. 2D and 3D thermal processing-maps 
 3D surfaces, for power dissipation efficiency eta, and rheological stability coefficient xi, respectively.
 }
 \examples{
-\dontrun{
+\donttest{
 # Check the factors in column names of input data:
 # Note: Temperature in layer2, Strain Rate in layer3.
 require(VBTree)
@@ -53,7 +52,7 @@ Prasad, YVRK, Rao, KP & Sasidhar, S (2015). Hot working guide: a compendium of p
 \code{\link[VBTree:VBTree-package]{VBTree}}, \code{\link[ggplot2:ggplot2-package]{ggplot2}}, \code{\link[rgl:rgl-package]{rgl}}
 }
 \author{
-ZHANG Chen
+Chen Zhang
 
-Maintainer: ZHANG Chen <447974102@qq.com>
+Maintainer: Chen Zhang <chen.zhang_06sept@foxmail.com>
 }

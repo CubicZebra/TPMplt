@@ -4,7 +4,9 @@
 \name{TPMdata}
 \alias{TPMdata}
 \title{A test data structurized column names.}
-\format{A data frame with 3939 rows and 56 columns}
+\format{
+A data frame with 3939 rows and 56 columns
+}
 \usage{
 TPMdata
 }

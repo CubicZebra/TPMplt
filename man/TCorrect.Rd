@@ -4,8 +4,18 @@
 \alias{TCorrect}
 \title{Adiabatic heating effect correction}
 \usage{
-TCorrect(x, lyT, lySR, eta, rho, c, StrainSeq, ACorrect = 1,
-  manual = NULL, Amplifier = 1000)
+TCorrect(
+  x,
+  lyT,
+  lySR,
+  eta,
+  rho,
+  c,
+  StrainSeq,
+  ACorrect = 1,
+  manual = NULL,
+  Amplifier = 1000
+)
 }
 \arguments{
 \item{x}{A data frame with \code{\link[VBTree:VBTree-package]{VBTree}} style. Pay attention, all factors
@@ -41,7 +51,7 @@ flow stress using the StrainSeq as conditions.
 Adiabatic heating effect correction
 }
 \examples{
-\dontrun{
+\donttest{
 # Constants of steels as example:
 dt_TC <- TCorrect(TPMdata, 2, 3, 0.9, 7.8, 502.416, seq(0, 0.9, 0.005))
 

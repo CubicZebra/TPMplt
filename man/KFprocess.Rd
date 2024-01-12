@@ -25,7 +25,7 @@ A data frame with the identical shape as input data, but with the smoothed stres
 Kalman filter reducing the noise in raw data if it is necessary.
 }
 \examples{
-\dontrun{
+\donttest{
 # raw data without smoothing:
 SSplots(TPMdata, 2, mfrow=c(2, 2))
 

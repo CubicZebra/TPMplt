@@ -4,8 +4,13 @@
 \alias{basic3d}
 \title{3D plots without labels}
 \usage{
-basic3d(x, gain = 100, division = 5, clrctrl = c("heat", "terrain",
-  "topo", "cm", "rainbow"), zeroplane = TRUE)
+basic3d(
+  x,
+  gain = 100,
+  division = 5,
+  clrctrl = c("heat", "terrain", "topo", "cm", "rainbow"),
+  zeroplane = TRUE
+)
 }
 \arguments{
 \item{x}{An "PLTbuilder" object.}

@@ -1,33 +1,31 @@
 Package: TPMplt
 Type: Package
 Title: Tool-Kit for Dynamic Materials Model and Thermal Processing Maps
-Version: 0.1.3
-Date: 2019-09-18
-Authors@R: c(person("Chen", "ZHANG", email = "447974102@qq.com", role = c("aut", "com", "cre", "cph")),
-  person("Rui", "LUO", role = c("ctb")), person("Lingxiao", "OUYANG", role = c("ctb")), 
-  person("Huakang", "BIAN", role = c("ctb")), person("Kenta", "YAMANAKA", role = c("ctb")),
-  person("Akihiko", "CHIBA", role = c("ctb")))
+Version: 0.1.4
+Date: 2024-01-13
+Authors@R: c(person("Chen Zhang", role=c("aut", "cre", "cph"),
+ email="chen.zhang_06sept@foxmail.com", comment=c(ORCID="0009-0007-7689-5030")))
 Description: Provides a simple approach for constructing dynamic materials
-  modeling suggested by Prasad and Gegel <doi:10.1007/BF02664902>. It
-  can easily generate various processing-maps based on this model as well. The 
-  calculation result in this package contains full materials constants, information
-  about power dissipation efficiency factor, and rheological properties, can
-  be exported completely also, through which further analysis and customized
-  plots will be applicable as well.
+ modeling suggested by Prasad and Gegel <doi:10.1007/BF02664902>. It
+ can easily generate various processing-maps based on this model as well. The
+ calculation result in this package contains full materials constants, information
+ about power dissipation efficiency factor, and rheological properties, can
+ be exported completely also, through which further analysis and customized
+ plots will be applicable as well.
 License: GPL-3
 URL: https://github.com/CubicZebra/TPMplt
+BugReports: https://github.com/CubicZebra/TPMplt/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.2.3
 Imports: VBTree,
+    methods,
     ggplot2,
     rgl,
     e1071,
     grDevices,
-    rowr,
     graphics,
     stats,
-    directlabels,
     utils,
     RColorBrewer,
     dlm

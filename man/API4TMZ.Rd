@@ -4,8 +4,14 @@
 \alias{API4TMZ}
 \title{Read multiple files exported from Thermec Master-Z tester}
 \usage{
-API4TMZ(Cdl, wd = getwd(), ftype = ".csv", Straincln = 7,
-  Stresscln = 8, startrow = 29)
+API4TMZ(
+  Cdl,
+  wd = getwd(),
+  ftype = ".csv",
+  Straincln = 7,
+  Stresscln = 8,
+  startrow = 29
+)
 }
 \arguments{
 \item{Cdl}{An handmade double list to determine selected conditions.}
