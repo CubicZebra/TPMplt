@@ -21,13 +21,12 @@ a summary data frame. It will also be available for the files from other tester 
 correct setting.
 }
 \examples{
-\dontrun{
 variable1 <- c("factor11", "factor12", "factor13")
 variable2 <- c("factor21", "factor22")
 variable3 <- c("factor31", "factor32", "factor33", "factor34")
 conditions <- list(variable1, variable2, variable3)
-SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Directory_for_data/")
-SummaryTable
-}
+
+# Not run:
+# SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Data_Directory/")
 }
 \keyword{APIfunction}

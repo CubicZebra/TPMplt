@@ -49,20 +49,16 @@ epstable <- epsExtract(TPMdata, 0.7, 2, 3)
 
 # Without calculation for constitutive equation
 DMM <- DMMprocess(epstable)
-print(DMM)
+message(DMM)
 
-\donttest{
 # Calculating for constitutive equation but
 # Without plots printout.
 DMM <- DMMprocess(epstable, ConsFunc=TRUE)
-print(DMM)
-}
+message(DMM)
 
-\dontrun{
 # Calculating for constitutive equation and
-# required fitting plots printout.
-DMMprocess(epstable, InteractMode=TRUE, ConsFunc=TRUE)
-}
+# required fitting plots printout. (message and selection in prompt)
+# DMMprocess(epstable, InteractMode=TRUE, ConsFunc=TRUE)
 
 }
 \seealso{

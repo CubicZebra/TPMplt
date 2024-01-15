@@ -28,7 +28,6 @@ Multiple Stress-Strain plots according to specified group methods.
 Automatic completion for Stress-Strain plots
 }
 \examples{
-\dontrun{
 require(VBTree)
 # Find locations for temperature and strain rate:
 # temperature in layer2, strain rate in layer3;
@@ -46,7 +45,6 @@ SSplots(TPMdata, 2, mfrow=c(2, 2))
 
 # Manual setting, for Stress-Stain plots:
 SSplots(TPMdata, 2, manual=c(1, 1, 2), mfrow=c(2, 2))
-}
 }
 \keyword{SSplots}
 \keyword{lyIDdetector}

@@ -6,7 +6,7 @@ Date: 2024-01-13
 Authors@R: c(person("Chen Zhang", role=c("aut", "cre", "cph"),
  email="chen.zhang_06sept@foxmail.com", comment=c(ORCID="0009-0007-7689-5030")))
 Description: Provides a simple approach for constructing dynamic materials
- modeling suggested by Prasad and Gegel <doi:10.1007/BF02664902>. It
+ modeling suggested by Prasad and Gegel (1984) <doi:10.1007/BF02664902>. It
  can easily generate various processing-maps based on this model as well. The
  calculation result in this package contains full materials constants, information
  about power dissipation efficiency factor, and rheological properties, can
@@ -21,6 +21,7 @@ RoxygenNote: 7.2.3
 Imports: VBTree,
     methods,
     ggplot2,
+    metR,
     rgl,
     e1071,
     grDevices,

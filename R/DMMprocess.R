@@ -30,20 +30,16 @@
 #'
 #' # Without calculation for constitutive equation
 #' DMM <- DMMprocess(epstable)
-#' print(DMM)
+#' message(DMM)
 #'
-#' \donttest{
 #' # Calculating for constitutive equation but
 #' # Without plots printout.
 #' DMM <- DMMprocess(epstable, ConsFunc=TRUE)
-#' print(DMM)
-#' }
+#' message(DMM)
 #'
-#' \dontrun{
 #' # Calculating for constitutive equation and
-#' # required fitting plots printout.
-#' DMMprocess(epstable, InteractMode=TRUE, ConsFunc=TRUE)
-#' }
+#' # required fitting plots printout. (message and selection in prompt)
+#' # DMMprocess(epstable, InteractMode=TRUE, ConsFunc=TRUE)
 #'
 #' @keywords DMMprocess DMMresult epsExtract
 DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendcex=0.65, legendloc="bottomright"){
@@ -104,8 +100,9 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
 
     #Plot1 output section
     if(InteractMode == TRUE){
-      cat("Show fitting plot of log_flow_stress vs. log_strain_rate?")
+      message("Show fitting plot of log_flow_stress vs. log_strain_rate?")
       ptr <- select.list(c("Yes", "No"))
+      on.exit(select.list(ptr))
       if(ptr == "Yes"){
         legendvec <- colnames(x)
         yscale <- c(min(unlist(scatter_mat)), max(unlist(scatter_mat)))
@@ -125,14 +122,15 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
           }
         }
       }
-      cat("Mean value of n.Stress.Index calculated from log_flow_stress vs. log_strain_rate fitting is", n.StressInd,"\n")
+      message("Mean value of n.Stress.Index calculated from log_flow_stress vs. log_strain_rate fitting is", n.StressInd,"\n")
       invisible(readline(prompt="Press [enter] to continue"))
     }
 
     #Plot2 output section
     if(InteractMode == TRUE){
-      cat("Show fitting plot of flow_stress vs. log_strain_rate?")
+      message("Show fitting plot of flow_stress vs. log_strain_rate?")
       ptr <- select.list(c("Yes", "No"))
+      on.exit(select.list(ptr))
       if(ptr == "Yes"){
         legendvec <- colnames(x)
         yscale <- c(min(unlist(scatter_mat1)), max(unlist(scatter_mat1)))
@@ -151,7 +149,7 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
             par(new=TRUE)
           }
         }
-        cat("Mean value of beta.Stress.Index calculated from flow_stress vs. log_strain_rate fitting is", beta.StressInd,"\n")
+        message("Mean value of beta.Stress.Index calculated from flow_stress vs. log_strain_rate fitting is", beta.StressInd,"\n")
         invisible(readline(prompt="Press [enter] to continue"))
       }
     }
@@ -179,8 +177,9 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
 
     #Plot3 output section
     if(InteractMode == TRUE){
-      cat("Show fitting plot of log[sinh(alpha*flow_stress)] vs. log_strain_rate?")
+      message("Show fitting plot of log[sinh(alpha*flow_stress)] vs. log_strain_rate?")
       ptr <- select.list(c("Yes", "No"))
+      on.exit(select.list(ptr))
       if(ptr == "Yes"){
         legendvec <- colnames(x)
         yscale <- c(min(unlist(scatter_mat)), max(unlist(scatter_mat)))
@@ -199,7 +198,7 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
             par(new=TRUE)
           }
         }
-        cat("Mean value of N.Stress.Index calculated from log[sinh(alpha*flow_stress)] vs. log_strain_rate is", N.StressInd,"\n")
+        message("Mean value of N.Stress.Index calculated from log[sinh(alpha*flow_stress)] vs. log_strain_rate is", N.StressInd,"\n")
         invisible(readline(prompt="Press [enter] to continue"))
       }
     }
@@ -224,8 +223,9 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
 
     #Plot4 output section
     if(InteractMode == TRUE){
-      cat("Show fitting plot of log[sinh(alpha*flow_stress)] vs. 1/T(K^-1)?")
+      message("Show fitting plot of log[sinh(alpha*flow_stress)] vs. 1/T(K^-1)?")
       ptr <- select.list(c("Yes", "No"))
+      on.exit(select.list(ptr))
       if(ptr == "Yes"){
         legendvec <- rownames(x)
         yscale <- c(min(unlist(scatter_mat)), max(unlist(scatter_mat)))
@@ -244,8 +244,8 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
             par(new=TRUE)
           }
         }
-        cat("Mean value of K calculated from log[sinh(alpha*flow_stress)] vs. 1/T(K^-1) is", K,"\n")
-        cat("Activation Energy Q calculated based on K and N.Stress.Index is", Q,"J/mol\n")
+        message("Mean value of K calculated from log[sinh(alpha*flow_stress)] vs. 1/T(K^-1) is", K,"\n")
+        message("Activation Energy Q calculated based on K and N.Stress.Index is", Q,"J/mol\n")
         invisible(readline(prompt="Press [enter] to continue"))
       }
     }
@@ -271,15 +271,16 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
 
     #Plot5 output section
     if (InteractMode == TRUE) {
-      cat("Show fitting plot of log_Z vs. log[sinh(alpha*flow_stress)]?")
+      message("Show fitting plot of log_Z vs. log[sinh(alpha*flow_stress)]?")
       ptr <- select.list(c("Yes", "No"))
+      on.exit(select.list(ptr))
       if(ptr == "Yes") {
         labx <- expression(paste("ln[sinh(", alpha, sigma, ")]", sep = ""))
         laby <- "lnZ"
         plot(a1, lnZ, type = "p", col = "black", pch=16, xlab = labx, ylab = laby)
         lines(x=a1, y=predict(lm1), col = "red", xlab = labx, ylab = laby)
 
-        cat("Value of n.Index calculated from log_Z vs. log[sinh(alpha*flow_stress)] is", n.Power,"\n")
+        message("Value of n.Index calculated from log_Z vs. log[sinh(alpha*flow_stress)] is", n.Power,"\n")
         invisible(readline(prompt="Press [enter] to continue"))
       }
     }
@@ -291,15 +292,16 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
 
     #Plot6 output section
     if (InteractMode == TRUE) {
-      cat("Show fitting plot of Z vs. [sinh(alpha*flow_stress)]^n?")
+      message("Show fitting plot of Z vs. [sinh(alpha*flow_stress)]^n?")
       ptr <- select.list(c("Yes", "No"))
+      on.exit(select.list(ptr))
       if(ptr == "Yes") {
         labx <- expression(paste("[sinh(", alpha, sigma, ")]^n", sep = ""))
         laby <- "Z"
         plot(a2, Z, type = "p", col = "black", pch=16, xlab = labx, ylab = laby)
         lines(x=a2, y=predict(lm2), col = "red", xlab = labx, ylab = laby)
 
-        cat("Value of A.Constant calculated from Z vs. [sinh(alpha*flow_stress)]^n is", A,"\n")
+        message("Value of A.Constant calculated from Z vs. [sinh(alpha*flow_stress)]^n is", A,"\n")
         invisible(readline(prompt="Press [enter] to continue"))
       }
     }
@@ -308,7 +310,7 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
 
 
     if(ConsFunc){
-      cat("Constitutive equation in", eps, "strain:\nEpsilon=A{[sinh(Alpha*Sigma)]^n}*exp[-Q/(RT)]\nWhere A =",
+      message("Constitutive equation in", eps, "strain:\nEpsilon=A{[sinh(Alpha*Sigma)]^n}*exp[-Q/(RT)]\nWhere A =",
           A, "s^-1", "\n      Alpha =", alpha.StressInd,
           "MPa^-1 = ", format(alpha.StressInd, scientific = TRUE), "Pa^-1\n      Q =", Q, "J/mol = ", Q.ActivEnerg,
           "kJ/mol\n      R = ", 8.314,"J/(mol*K)\n      Epsilon is strain rate\n      Sigma is flow stress\n      T is Temperature (K)", "\n\n")
@@ -334,8 +336,9 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
 
   #Plot7 output section
   if(InteractMode == TRUE){
-    cat("Show 3 order polynomial fitting plot of log_flow_stress vs. log_strain_rate?")
+    message("Show 3 order polynomial fitting plot of log_flow_stress vs. log_strain_rate?")
     ptr <- select.list(c("Yes", "No"))
+    on.exit(select.list(ptr))
     if(ptr == "Yes"){
       legendvec <- colnames(x)
       yscale <- c(min(unlist(scatter_mat)), max(unlist(scatter_mat)))

@@ -7,7 +7,7 @@
 #' @param yloc Location for annotatin in y axis. The default value is 0.03.
 #' @param clrctrl Colour vector to control eta background, the default value uses rainbow palette.
 #'
-#' @import ggplot2
+#' @import ggplot2 metR
 #' @return A 2d thermal processing-map with logarithm strain rate as its y axis while celsius temperature as its x axis. Strain conditon
 #' is showed in top-left in the figure. Power dissipation efficiency factor eta is denoted by gradient blue contours, and the rheological
 #' stability coefficient are represented by gradient background.
@@ -43,7 +43,8 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, clrctrl=rev(rainbow(7))[-1]){
   xily <- ggplot(data = data1, aes(data1[,1], data1[,2], z = data1[,4]))
   xily <- xily + geom_raster(aes(fill = data1[,4]), interpolate = TRUE) + scale_fill_gradientn(name=expression(xi), colours=clrctrl)
 
-  ath_etaly <- xily + geom_contour(data = data2, aes(data2[,1], data2[,2], z=data2[,4], colour = after_stat(level)), inherit.aes = TRUE)
+  ath_etaly <- xily + geom_contour(data = data2, aes(data2[,1], data2[,2], z=data2[,4], colour = after_stat(level)), inherit.aes = TRUE) +
+    metR::geom_text_contour(aes(z = data2[,4]), stroke = 0.15)
   ath_etaly <- ath_etaly + my_theme + xlab("Temperature (Celsius)") + ylab("LogStrainRate (log(s^(-1)))") + labs(color="eta")
 
   # add annotation
@@ -52,7 +53,6 @@ TPM2dplt <- function(x, xloc=0.09, yloc=0.03, clrctrl=rev(rainbow(7))[-1]){
   locy <- max(x[[1]][,2]) - (max(x[[1]][,2])-min(x[[1]][,2]))*yloc
   result <- ath_etaly + annotate("text", x=locx, y=locy, label=paste("Strain: ", SR, sep = ""), colour = "black") +
     labs(title = expression(paste("Guide: Background=", xi, "; Contours=", eta, collapse  = "")))
-
   return(result)
 }
 

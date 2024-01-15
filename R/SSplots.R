@@ -15,7 +15,6 @@
 #' @export SSplots
 #'
 #' @examples
-#' \dontrun{
 #' require(VBTree)
 #' # Find locations for temperature and strain rate:
 #' # temperature in layer2, strain rate in layer3;
@@ -33,7 +32,6 @@
 #'
 #' # Manual setting, for Stress-Stain plots:
 #' SSplots(TPMdata, 2, manual=c(1, 1, 2), mfrow=c(2, 2))
-#' }
 #' @keywords SSplots lyIDdetector
 SSplots <- function(x, grpby, manual=NULL, legendscale=0.7, ...){
 
@@ -52,6 +50,8 @@ SSplots <- function(x, grpby, manual=NULL, legendscale=0.7, ...){
     strainlevel <- lyIDs[[2]]
     stresslevel <- lyIDs[[3]]
   } else {
+    lyIDs <- list("layer"=manual[1], "strainID"=manual[2], "stressID"=manual[3])
+    class(lyIDs) <- "pointer"
     lySS <- manual[1]
     strainlevel <- manual[2]
     stresslevel <- manual[3]
@@ -80,7 +80,8 @@ SSplots <- function(x, grpby, manual=NULL, legendscale=0.7, ...){
     grparr[, i, 2] <- as.vector(vbt2arr(vbtsub(vbt, visit)))
   }
 
-  par(...=...) # plots arrangement
+  cus_par <- par(...=...) # plots arrangement
+  on.exit(par(cus_par))
 
   i <- 1
   for (i in 1:plts) {
@@ -107,15 +108,18 @@ SSplots <- function(x, grpby, manual=NULL, legendscale=0.7, ...){
 
       # plots in groups
       clrs <- palette()[j+1]
-      par(cex=legendscale)
+      cus_par <- par(cex=legendscale)
+      on.exit(par(cus_par))
       plot(x=x[, grparr[i,j,1]], y=x[, grparr[i,j,2]], pch=20, type = "l", col=clrs,
            xlab = "Strain", ylab = "Stress", xlim = xscale, ylim = yscale, main = mainlab)
       if (j==grps){
         legend("topleft", ptlegend, fill = palette()[2:(grps+1)], text.font = 2, seg.len = 0.3, cex = legendscale,
                horiz = TRUE, bg = "transparent", box.lty = 0, x.intersp=0.1, text.width = (c(1:grps)-1)*0.0002)
-        par(new=FALSE)
+        cus_par <- par(new=FALSE)
+        on.exit(par(cus_par))
       } else {
-        par(new=TRUE)
+        cus_par <- par(new=TRUE)
+        on.exit(par(cus_par))
       }
     }
   }

@@ -4,14 +4,7 @@
 \alias{API4TMZ}
 \title{Read multiple files exported from Thermec Master-Z tester}
 \usage{
-API4TMZ(
-  Cdl,
-  wd = getwd(),
-  ftype = ".csv",
-  Straincln = 7,
-  Stresscln = 8,
-  startrow = 29
-)
+API4TMZ(Cdl, wd, ftype = ".csv", Straincln = 7, Stresscln = 8, startrow = 29)
 }
 \arguments{
 \item{Cdl}{An handmade double list to determine selected conditions.}
@@ -40,13 +33,12 @@ a summary table. It will also be available for the files from other tester appar
 correct setting.
 }
 \examples{
-\dontrun{
 variable1 <- c("factor11", "factor12", "factor13")
 variable2 <- c("factor21", "factor22")
 variable3 <- c("factor31", "factor32", "factor33", "factor34")
 conditions <- list(variable1, variable2, variable3)
-SummaryTable <- API4TMZ(conditions, "/Your_Directory_for_data/")
-SummaryTable
-}
+
+# Not run:
+# SummaryTable <- API4TMZ(conditions, "/Your_Data_Directory/")
 }
 \keyword{APIfunction}
