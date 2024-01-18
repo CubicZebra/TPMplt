@@ -58,7 +58,9 @@ message(DMM)
 
 # Calculating for constitutive equation and
 # required fitting plots printout. (message and selection in prompt)
-# DMMprocess(epstable, InteractMode=TRUE, ConsFunc=TRUE)
+\dontrun{
+DMMprocess(epstable, InteractMode=TRUE, ConsFunc=TRUE)
+}
 
 }
 \seealso{

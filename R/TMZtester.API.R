@@ -26,8 +26,9 @@
 #' variable3 <- c("factor31", "factor32", "factor33", "factor34")
 #' conditions <- list(variable1, variable2, variable3)
 #'
-#' # Not run:
-#' # SummaryTable <- API4TMZ(conditions, "/Your_Data_Directory/")
+#' \dontrun{
+#' SummaryTable <- API4TMZ(conditions, "/Your_Data_Directory/")
+#' }
 #' @keywords APIfunction
 API4TMZ <- function(Cdl, wd, ftype=".csv", Straincln=7, Stresscln=8, startrow=29){
 
@@ -144,7 +145,9 @@ API4TMZ <- function(Cdl, wd, ftype=".csv", Straincln=7, Stresscln=8, startrow=29
 #' conditions <- list(variable1, variable2, variable3)
 #'
 #' # Not run:
-#' # SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Data_Directory/")
+#' \dontrun{
+#' SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Data_Directory/")
+#' }
 #' @keywords APIfunction
 TMZdatainput <- function(makeidx=FALSE, ...){
   data <- API4TMZ(...)

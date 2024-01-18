@@ -38,7 +38,8 @@ variable2 <- c("factor21", "factor22")
 variable3 <- c("factor31", "factor32", "factor33", "factor34")
 conditions <- list(variable1, variable2, variable3)
 
-# Not run:
-# SummaryTable <- API4TMZ(conditions, "/Your_Data_Directory/")
+\dontrun{
+SummaryTable <- API4TMZ(conditions, "/Your_Data_Directory/")
+}
 }
 \keyword{APIfunction}

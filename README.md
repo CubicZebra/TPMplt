@@ -29,9 +29,7 @@ TPMplt is a tool-kit for building the dynmaic materials model (DMM), suggested b
 
 ## Workflow
 
-<div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/demo1.png" width="65%" height="65%" />
-</div>
+![](vignettes/figs/demo1.png)
 
 ### Kalman smoothing for noise reduction
 
@@ -39,37 +37,27 @@ The function  ```KFprocess()``` can apply Kalman smoothing for all raw data for 
 
 Following figures show the raw data with significant vibration in plastic deformation period:
 
-<div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img2.png" width="75%" height="75%" />
-</div>
+![](vignettes/figs/Img2.png)
 
 After using Kalman filter, the curves will be of more clear paths:
 
-<div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img3.png" width="75%" height="75%" />
-</div>
+![](vignettes/figs/Img3.png)
 
 ### Adiabatic heating correction
 
 The phenomenon of adiabatic temperature rise non-negligible, especially in the conditions of low temperatures, high strain rates, or even both. Rationally, before the calculation for the processing maps, adiabatic heating correction should be utilized. The function ```TCorrect()``` can implement the automatic correction for this phenomenon. The corrected results will be:
 
-<div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img4.png" width="75%" height="75%" />
-</div>
+![](vignettes/figs/Img4.png)
 
 ### Computation for dynamic material model and output corresponding figures
 
 The function used to build dynamic material model (DMM) for materials is ```DMMprocess()```. This function has two most important arguments: ```InteractMode``` and ```ConsFun```. The argument ```InteractMode``` control the output of figures and parameters computed for DMM. If the value of ```ConsFun``` is ```TRUE``, the constitutive equation will be calculated then printed out. Additionally, if its value of ```InteractMode``` is set as ```TRUE``` simultaneously, the following figures can be exported one by one:
 
-<div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/demo3.png" width="90%" height="90%" />
-</div>
+![](vignettes/figs/demo3.png)
 
 Related parameters in each intermediate step will be printed out in console as well, when ```InteractMode``` is TRUE:
 
-<div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img12.png" width="90%" height="90%" />
-</div>
+![](vignettes/figs/Img12.png)
 
 ## Processing Map Preview
 
@@ -77,9 +65,7 @@ Related parameters in each intermediate step will be printed out in console as w
 
 After making the model followed with regression, the 2D can be visualized as:
 
-<div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/demo2.png" width="60%" height="60%" />
-</div>
+![](vignettes/figs/demo2.png)
 
 The background in gradient colors informs the stability coefficient $\xi$, while the contours denotes the power dissipation efficiency $\eta$.
 
@@ -87,9 +73,7 @@ The background in gradient colors informs the stability coefficient $\xi$, while
 
 $\xi$ and $\eta$ can also be respectively generated using the 3D plot function. The result will be as:
 
-<div  align="center">    
-<img src="https://raw.githubusercontent.com/CubicZebra/PicHost/master/TPMplt/Img13.png" width="90%" height="90%" />
-</div>
+![](vignettes/figs/Img13.png)
 
 Operations such as mouse rotation, zoom in and zoom out are also available in this visualization mode. Users can use those operations flexibly, to find out more interesting things which might be difficult to be found out in 2D visualization.
 

@@ -39,7 +39,9 @@
 #'
 #' # Calculating for constitutive equation and
 #' # required fitting plots printout. (message and selection in prompt)
-#' # DMMprocess(epstable, InteractMode=TRUE, ConsFunc=TRUE)
+#' \dontrun{
+#' DMMprocess(epstable, InteractMode=TRUE, ConsFunc=TRUE)
+#' }
 #'
 #' @keywords DMMprocess DMMresult epsExtract
 DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendcex=0.65, legendloc="bottomright"){
@@ -116,9 +118,11 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
           lines(x=lgSR, y=predict(lmlist[[i]]), col = clrvec[i], xlim = xscale, ylim = yscale, xlab = labx, ylab = laby)
           if (i == dims[2]){
             legend(legendloc,legend = legendvec, fill = clrvec[1:dims[2]], cex = legendcex, bg = "transparent", box.lty = 0)
-            par(new=FALSE)
+            cus_par <- par(new=FALSE)
+            on.exit(par(cus_par))
           } else {
-            par(new=TRUE)
+            cus_par <- par(new=TRUE)
+            on.exit(par(cus_par))
           }
         }
       }
@@ -144,9 +148,11 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
           lines(x=lgSR, y=predict(lmlist1[[i]]), col = clrvec[i], xlim = xscale, ylim = yscale, xlab = labx, ylab = laby)
           if (i == dims[2]){
             legend(legendloc,legend = legendvec, fill = clrvec[1:dims[2]], cex = legendcex, bg = "transparent", box.lty = 0)
-            par(new=FALSE)
+            cus_par <- par(new=FALSE)
+            on.exit(par(cus_par))
           } else {
-            par(new=TRUE)
+            cus_par <- par(new=TRUE)
+            on.exit(par(cus_par))
           }
         }
         message("Mean value of beta.Stress.Index calculated from flow_stress vs. log_strain_rate fitting is", beta.StressInd,"\n")
@@ -193,9 +199,11 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
           lines(x=lgSR, y=predict(lmlist[[i]]), col = clrvec[i], xlim = xscale, ylim = yscale, xlab = labx, ylab = laby)
           if (i == dims[2]){
             legend(legendloc,legend = legendvec, fill = clrvec[1:dims[2]], cex = legendcex, bg = "transparent", box.lty = 0)
-            par(new=FALSE)
+            cus_par <- par(new=FALSE)
+            on.exit(par(cus_par))
           } else {
-            par(new=TRUE)
+            cus_par <- par(new=TRUE)
+            on.exit(par(cus_par))
           }
         }
         message("Mean value of N.Stress.Index calculated from log[sinh(alpha*flow_stress)] vs. log_strain_rate is", N.StressInd,"\n")
@@ -239,9 +247,11 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
           lines(x=T_1, y=predict(lmlist[[i]]), col = clrvec[i], xlim = xscale, ylim = yscale, xlab = labx, ylab = laby)
           if (i == dims[1]){
             legend(legendloc,legend = legendvec, fill = clrvec[1:dims[2]], cex = legendcex, bg = "transparent", box.lty = 0)
-            par(new=FALSE)
+            cus_par <- par(new=FALSE)
+            on.exit(par(cus_par))
           } else {
-            par(new=TRUE)
+            cus_par <- par(new=TRUE)
+            on.exit(par(cus_par))
           }
         }
         message("Mean value of K calculated from log[sinh(alpha*flow_stress)] vs. 1/T(K^-1) is", K,"\n")
@@ -353,9 +363,11 @@ DMMprocess <- function(x, lgbase=10, InteractMode=FALSE, ConsFunc=FALSE, legendc
         curve(Coefs[1]+Coefs[2]*x+Coefs[3]*x^2+Coefs[4]*x^3, xscale[1], xscale[2], col=clrvec[i], ylim = yscale, add = TRUE)
         if (i == dims[2]){
           legend(legendloc,legend = legendvec, fill = clrvec[1:dims[2]], cex = legendcex, bg = "transparent", box.lty = 0)
-          par(new=FALSE)
+          cus_par <- par(new=FALSE)
+          on.exit(par(cus_par))
         } else {
-          par(new=TRUE)
+          cus_par <- par(new=TRUE)
+          on.exit(par(cus_par))
         }
       }
     }

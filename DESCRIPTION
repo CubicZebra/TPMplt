@@ -4,7 +4,11 @@ Title: Tool-Kit for Dynamic Materials Model and Thermal Processing Maps
 Version: 0.1.4
 Date: 2024-01-13
 Authors@R: c(person("Chen Zhang", role=c("aut", "cre", "cph"),
- email="chen.zhang_06sept@foxmail.com", comment=c(ORCID="0009-0007-7689-5030")))
+ email="chen.zhang_06sept@foxmail.com", comment=c(ORCID="0009-0007-7689-5030")),
+ person("Huakang Bian", role=c("ctb"), email="bianhuakang@shu.edu.cn"),
+ person("Kenta Yamanaka", role=c("ths"), email="k_yamanaka@imr.tohoku.ac.jp", 
+ comment=c(ORCID="0000-0003-1675-4731")),
+ person("Akihiko Chiba", role=c("ths"), email="a.chiba@imr.tohoku.ac.jp"))
 Description: Provides a simple approach for constructing dynamic materials
  modeling suggested by Prasad and Gegel (1984) <doi:10.1007/BF02664902>. It
  can easily generate various processing-maps based on this model as well. The
