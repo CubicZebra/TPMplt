@@ -4,8 +4,8 @@
 #' a summary table. It will also be available for the files from other tester apparatus by
 #' correct setting.
 #' @param Cdl An handmade double list to determine selected conditions.
-#' @param wd Work directory. Default setting is \code{\link[base:getwd]{getwd()}}.
-#' @param ftype File type to be read. Defaust setting is ".csv".
+#' @param wd Work directory.
+#' @param ftype File type to be read. Default value is ".csv".
 #' @param Straincln An integer to specify column for Strain in your data. Default value
 #' is 7 means the 7th column contains strain data, in the files exported from Thermec
 #' Master-Z tester.
@@ -76,23 +76,15 @@ API4TMZ <- function(Cdl, wd, ftype=".csv", Straincln=7, Stresscln=8, startrow=29
     stop("input list must double list.", call. = FALSE)
   } else{
     # Cdl: a double list for conditions
-    # wd: the working directory, default value is getwd()
+    # wd: the working directory, defined by user
 
     # make names
     name <- trvs(dl2vbt(Cdl))
     name <- unlist(name[,1])
     len_name <- length(name)
 
-    # set working directory
-    if(wd == getwd()){
-      sfd <- ""
-    } else {
-      sfd <- wd
-      wd <- getwd()
-    }
-
     # initialize temp data
-    temp_data <- read.csv(paste(wd, sfd, name[1], ftype, sep = ""), header = F)
+    temp_data <- read.csv(paste(wd, name[1], ftype, sep = ""), header = F)
     temp_data <- as.matrix(temp_data[startrow:dim(temp_data)[1],])
     temp_data <- temp_data[which(temp_data[,2]==" 1"), c(Straincln, Stresscln)]
     data <- temp_data
@@ -110,7 +102,7 @@ API4TMZ <- function(Cdl, wd, ftype=".csv", Straincln=7, Stresscln=8, startrow=29
     clnnames <- c()
     i <- 1
     for(i in 1:len_name){
-      temp_data <- read.csv(paste(wd, sfd, name[i],".csv", sep = ""), header = F)
+      temp_data <- read.csv(paste(wd, name[i],".csv", sep = ""), header = F)
       temp_data <- as.matrix(temp_data[startrow:dim(temp_data)[1],])
       temp_data <- temp_data[which(temp_data[,2]==" 1"), c(Straincln, Stresscln)]
       temp_data <- apply(temp_data, 2, as.numeric)
@@ -144,7 +136,6 @@ API4TMZ <- function(Cdl, wd, ftype=".csv", Straincln=7, Stresscln=8, startrow=29
 #' variable3 <- c("factor31", "factor32", "factor33", "factor34")
 #' conditions <- list(variable1, variable2, variable3)
 #'
-#' # Not run:
 #' \dontrun{
 #' SummaryTable <- TMZdatainput(Cdl=conditions, wd="/Your_Data_Directory/")
 #' }
@@ -152,9 +143,9 @@ API4TMZ <- function(Cdl, wd, ftype=".csv", Straincln=7, Stresscln=8, startrow=29
 TMZdatainput <- function(makeidx=FALSE, ...){
   data <- API4TMZ(...)
   title <- colnames(data)
-  write.csv(data, "temp.csv")
-  result <- read.csv("temp.csv")
-  file.remove("temp.csv")
+
+  result <- data.frame(data)
+
   colnames(result)[-1] <- title
   colnames(result)[1] <- "idx"
   result <- as.data.frame(result)

@@ -9,7 +9,7 @@ API4TMZ(Cdl, wd, ftype = ".csv", Straincln = 7, Stresscln = 8, startrow = 29)
 \arguments{
 \item{Cdl}{An handmade double list to determine selected conditions.}
 
-\item{wd}{Work directory. Default setting is \code{\link[base:getwd]{getwd()}}.}
+\item{wd}{Work directory.}
 
 \item{ftype}{File type to be read. Defaust setting is ".csv".}
 
