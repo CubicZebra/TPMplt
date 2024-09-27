@@ -11,7 +11,7 @@ API4TMZ(Cdl, wd, ftype = ".csv", Straincln = 7, Stresscln = 8, startrow = 29)
 
 \item{wd}{Work directory.}
 
-\item{ftype}{File type to be read. Defaust setting is ".csv".}
+\item{ftype}{File type to be read. Default value is ".csv".}
 
 \item{Straincln}{An integer to specify column for Strain in your data. Default value
 is 7 means the 7th column contains strain data, in the files exported from Thermec
