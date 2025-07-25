@@ -6,7 +6,7 @@
 #' @param seqby A numeric value to specify the grid density. Default value is 80, namely the default mesh for
 #' original plot uses 80*80.
 #'
-#' @import e1071
+#' @importFrom e1071 svm
 #' @return A data frame including continuous values for eta and xi, calculated based on the discrete values for
 #' eta and xi returned from \code{\link[TPMplt:DMMprocess]{DMMprocess}}. The strain condition in current calculation
 #' is also included.

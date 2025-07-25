@@ -1,8 +1,8 @@
 Package: TPMplt
 Type: Package
 Title: Tool-Kit for Dynamic Materials Model and Thermal Processing Maps
-Version: 0.1.6
-Date: 2024-10-01
+Version: 0.1.7
+Date: 2025-07-25
 Authors@R: c(person("Chen", "Zhang", role=c("aut", "cre", "cph"),
  email="chen.zhang_06sept@foxmail.com", comment=c(ORCID="0009-0007-7689-5030")),
  person("Huakang", "Bian", role=c("ctb"), email="bianhuakang@shu.edu.cn"),
